@@ -1,0 +1,256 @@
+{
+ "report_type": "opposition",
+ "title": "Hilltop",
+ "meta": "Combined Counties Prem North \u00b7 scouted from Hilltop 1-2 Wokingham Town \u00b7 31 July 2026",
+ "teams": {
+  "home": {
+   "name": "Hilltop",
+   "short": "HIL",
+   "color": "#1B3A6B",
+   "formation": "4-2-1-3",
+   "lines": [
+    [
+     "GK",
+     [
+      [
+       12,
+       "Hassan"
+      ]
+     ]
+    ],
+    [
+     "DEF",
+     [
+      [
+       18,
+       "Rahmani"
+      ],
+      [
+       8,
+       "H. Hussein"
+      ],
+      [
+       5,
+       "Yates"
+      ],
+      [
+       19,
+       "Mahdi"
+      ]
+     ]
+    ],
+    [
+     "DM",
+     [
+      [
+       6,
+       "M. Hussein (C)"
+      ],
+      [
+       10,
+       "Jurkstis"
+      ]
+     ]
+    ],
+    [
+     "AM",
+     [
+      [
+       14,
+       "Abukar M."
+      ]
+     ]
+    ],
+    [
+     "FWD",
+     [
+      [
+       20,
+       "Mahamud"
+      ],
+      [
+       9,
+       "Kahssay"
+      ],
+      [
+       7,
+       "Okello"
+      ]
+     ]
+    ]
+   ],
+   "subs": [
+    [
+     11,
+     "Micheal Kikambi"
+    ],
+    [
+     21,
+     "Ibrahim Benabbas"
+    ],
+    [
+     3,
+     "Mohammed Amin"
+    ],
+    [
+     2,
+     "Mohamed Afrah"
+    ]
+   ]
+  },
+  "wok": {
+   "name": "Wokingham Town",
+   "short": "WOK",
+   "color": "#E8621F"
+  }
+ },
+ "events": [
+  {
+   "t": 59,
+   "mm": "59'",
+   "type": "sub",
+   "team": "wok",
+   "who": "North",
+   "desc": "North on for Creech"
+  },
+  {
+   "t": 61,
+   "mm": "65'",
+   "type": "card",
+   "team": "home",
+   "who": "M. Hussein",
+   "desc": "Mohamed Hussein booked"
+  },
+  {
+   "t": 65,
+   "mm": "65'",
+   "type": "goal",
+   "team": "wok",
+   "who": "Moore",
+   "desc": "Moore 0-1 \u00b7 press wins it in Hilltop's build-up, struck from the edge"
+  },
+  {
+   "t": 66,
+   "mm": "66'",
+   "type": "sub",
+   "team": "home",
+   "who": "Kikambi",
+   "desc": "Kikambi on for Kahssay"
+  },
+  {
+   "t": 67,
+   "mm": "67'",
+   "type": "sub",
+   "team": "home",
+   "who": "Benabbas",
+   "desc": "Benabbas on for Okello"
+  },
+  {
+   "t": 72,
+   "mm": "72'",
+   "type": "goal",
+   "team": "wok",
+   "who": "P-B",
+   "desc": "Peprah-Baah 0-2 \u00b7 worked short corner, rebound finish"
+  },
+  {
+   "t": 77,
+   "mm": "77'",
+   "type": "sub",
+   "team": "wok",
+   "who": "Clark",
+   "desc": "Clark on for Dowding"
+  },
+  {
+   "t": 80,
+   "mm": "80'",
+   "type": "sub",
+   "team": "home",
+   "who": "Amin",
+   "desc": "Amin on for Mohamed Hussein"
+  },
+  {
+   "t": 83,
+   "mm": "83'",
+   "type": "sub",
+   "team": "wok",
+   "who": "Bayley",
+   "desc": "Bayley on for Jordan"
+  },
+  {
+   "t": 84,
+   "mm": "84'",
+   "type": "goal",
+   "team": "home",
+   "who": "Mahamud",
+   "desc": "AbdulWahab Mahamud 1-2 \u00b7 penalty, won by Rahmani"
+  }
+ ],
+ "shots": [
+  {
+   "x": 180,
+   "y": 58,
+   "o": "goal",
+   "team": "home"
+  },
+  {
+   "x": 168,
+   "y": 132,
+   "o": "on",
+   "team": "home"
+  },
+  {
+   "x": 178,
+   "y": 146,
+   "o": "on",
+   "team": "home"
+  },
+  {
+   "x": 118,
+   "y": 54,
+   "o": "on",
+   "team": "home"
+  },
+  {
+   "x": 152,
+   "y": 96,
+   "o": "on",
+   "team": "home"
+  },
+  {
+   "x": 206,
+   "y": 54,
+   "o": "off",
+   "team": "home"
+  },
+  {
+   "x": 232,
+   "y": 62,
+   "o": "off",
+   "team": "home"
+  }
+ ],
+ "stats": [
+  [
+   "SHAPE",
+   "4-2-1-3",
+   true
+  ],
+  [
+   "DANGER",
+   "#20 Mahamud",
+   false
+  ],
+  [
+   "WEAK POINT",
+   "Build-up",
+   false
+  ],
+  [
+   "THREAT SIDE",
+   "Their left",
+   false
+  ]
+ ],
+ "focus_team": "home"
+}
