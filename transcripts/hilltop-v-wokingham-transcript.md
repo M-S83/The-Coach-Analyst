@@ -220,43 +220,31 @@ steps up … sends the keeper the wrong way.**
 
 ---
 
-## Working notes for the report
+## Working notes — SUPERSEDED
 
-Themes that came through clearly enough on **both** model passes to be worth building on
-(still worth a footage check on the numbers):
+These notes were written from the audio alone, before the official teamsheet and the
+covering journalist's match report were available. Both later sources are in
+`reports/hilltop-v-wokingham-report.md`, which is the current version. Two attributions
+here were wrong and are corrected there:
 
-**Opposition (Wokingham) out of possession**
-- No real press — striker too slow to trigger it; ball allowed out of the back repeatedly
-  (`01:06`, `01:50`, `09:32`).
-- No proper defensive-midfield screen at times; number 6 drops in but is slow to do it
-  (`01:50`, `10:16`).
-- Full-backs push very high and are "nowhere to be seen" defensively (`00:22`, `01:50`, `02:12`).
-- Back line: real lack of pace; centre-backs young and slight; keeper very young (`01:28`, `04:02`).
-- Defensive set-piece structure noted in detail: man-marking + one spare (8, then 5), 2- and
-  3-man walls, ~30 yards of spacing (`08:26`, `08:48`, `09:10`, `09:32`).
+- The **penalty was won by Sammim Rahmani (#18)**, the left-back breaking into the box after
+  a one-two with Benabbas — not by #11. The audio says "the left full-back again, bursting
+  forward"; the earlier reading of "beat the left-back" was a misparse.
+- The **back-to-goal / first-touch-backwards note belongs to Nadeer Kahssay (#9)**, the
+  centre-forward, not #19. Jibril Mahdi (#19) at right-back was independently praised for his
+  performance.
 
-**Opposition threats**
-- Number 6 — captain, tallest player, ~6'4", takes left-footed set pieces, long-range shooting
-  (`00:22`, `01:06`, `01:28`, `04:24`).
-- Number 20 — left winger, quick, "looks tricky", gets in behind (`01:50`, `00:22` pt2).
-- Number 11 — came on and was immediately lively, beat the left-back repeatedly, won the penalty
-  (`03:40` pt1, `00:44`–`01:06` pt2).
-- Goalkeeper goes long to number 9 from every goal kick in the second half (`01:28` pt1).
+The numbered shape walk-through at `[00:00]` of the first half is **Hilltop's own 4-2-1-3**,
+not the opposition's. Every number spoken in the audio resolves to a Hilltop squad member.
 
-**Our own issues flagged**
-- Number 10 giving the ball away repeatedly, telegraphed body shape, poor decisions under no
-  pressure (`04:24`, `08:04`, `09:54`).
-- Number 19 always receiving with his back to the defender; first touch takes him backwards
-  (`10:38`).
-- Communication — no call from the full-back on an overload; all instructions coming from the
-  manager on the touchline (`01:28` pt1).
-- Clearances "just swiped" rather than struck properly (`07:20`, `07:42`).
-- Offside trap could have been beaten several times if watched (`00:00` pt1, 2nd half).
+Squad reference for reading the transcript above:
 
-**Match events captured**
-- 1st half: chance for their striker after our giveaway, keeper made it difficult (`04:46`);
-  our striker missed after a loose ball dropped to him — "poor finish" (`10:38`).
-- 2nd half: 20 through on the left, left-foot shot wide; number 6 long-range effort saved
-  (`00:44`–`01:06`); shot after a defensive mix-up (`02:56`–`03:18`); free kick on target from
-  number 11, keeper saved low (`04:24`); goal from inside the box after a poorly cleared corner
-  (`00:00` pt2); **penalty won and scored by number 20** (`01:06` pt2).
+| # | Player | # | Player |
+|---|---|---|---|
+| 12 | Hossam Hassan (GK) | 14 | Abukar Mohamed |
+| 18 | Sammim Rahmani | 20 | Abdilhlwahab Mohamed |
+| 8 | Hussein Hussein | 9 | Nadeer Kahssay |
+| 5 | Jack Yates | 7 | Tyrese Okello |
+| 19 | Jibril Mahdi | 11 | Micheal Kikambi (on 66') |
+| 6 | Mohamed Hussein (C) | 21 | Ibrahim Benabbas (on 67') |
+| 10 | Rinalds Jurkstis | 3 | Mohammed Amin (on 80') |
