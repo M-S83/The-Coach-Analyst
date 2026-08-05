@@ -12,15 +12,13 @@ ROSTER CHECK: PASSED
 - Sammim Rahmani (#18, LB), Hussein Hussein (#8, LCB), Jack Yates (#5, RCB), Jibril Mahdi (#19, RB)
 - Mohamed Hussein (#6, DM, captain), Rinalds Jurkstis (#10, DM)
 - Abukar Mohamed (#14, AM)
-- Abdilhlwahab Mohamed (#20, LW), Nadeer Kahssay (#9, CF), Tyrese Okello (#7, RW)
+- AbdulWahab Mahamud (#20, LW), Nadeer Kahssay (#9, CF), Tyrese Okello (#7, RW)
 
 **Hilltop substitutions:**
 - 66' Micheal Kikambi (#11) on for Nadeer Kahssay (#9)
 - 67' Ibrahim Benabbas (#21) on for Tyrese Okello (#7)
 - 80' Mohammed Amin (#3) on for Mohamed Hussein (#6)
 - Unused: Diogo Costa, Mohamed Afrah (#2)
-
-*Names follow the official club record. The covering journalist renders #20 as "AbdulWahab Mahamud"; the two spellings refer to the same player. Positional assignments are reconstructed from the shirt numbers called out in the live audio and cross-check cleanly against the teamsheet [A].*
 
 **Wokingham changes affecting the game state:** North for Creech 59', Clark for Dowding 77', Bayley for Jordan 83' [A].
 
@@ -29,6 +27,8 @@ ROSTER CHECK: PASSED
 Three sources sit behind this report. The **official match record** supplies the result, lineups, scorers, card and substitution timings [A]. **17 minutes 29 seconds of pitch-side voice notes** across three files supply the tactical detail — structure, patterns and individual observations. An **independent match report** from the covering journalist supplies chance-by-chance narrative for the passages the audio does not cover.
 
 Grades reflect corroboration, not confidence in the observer: **[A]** on the official record or agreed by two independent sources; **[B]** a pattern the audio records more than once; **[C]** a single sighting, or one source only.
+
+#20 is spelled **AbdulWahab Mahamud** throughout; the club record renders him as "Abdilhlwahab Mohamed". All other names follow the club record. Positional assignments in the 4-2-1-3 are the club's own, and the shirt numbers called out in the live audio cross-check cleanly against the teamsheet [A].
 
 This report covers Hilltop. Wokingham appear only where their actions explain what happened to Hilltop — principally the two goals conceded. Where the live audio and the journalist disagree, both readings are given; those divergences are set out in *Source Reconciliation* below, and two of them change what the game looked like.
 
@@ -40,7 +40,7 @@ Hilltop set up in a 4-2-1-3 and built from a split back four with both full-back
 
 **The build-up phase is where the match was lost.** The audio describes Hilltop's play out from the back as short, flat and static, with players in front of the ball not making themselves available as options [B], and records Rinalds Jurkstis (#10) giving the ball away on more than one occasion with body shape telegraphing the intended pass [B]. For an hour this went unpunished, because the audio is equally clear that Wokingham were passive out of possession — the centre-forward too slow to trigger a press, no pressing as a unit, and the explicit note that Hilltop were only able to play out because they were being allowed to [B]. The opening goal on 65' came from the exact opposite: a Wokingham player pressed a Hilltop player on the ball as Hilltop played out from defence, won it, and fed Sean Moore on the edge of the box [A]. Whether that was a half-time adjustment or a single opportunistic press is not resolvable from the material available [C]. Either way, the pattern Hilltop had been playing through unchallenged for an hour was the pattern that produced the goal.
 
-**The attacking threat was consistent but narrow.** Abdilhlwahab Mohamed (#20) on the left produced the first chance of the match, forced two further saves from Jake Simpson across the game, and converted the penalty [A]. The journalist names him Hilltop's player of the match, and the audio independently flags him as quick, tricky and capable of creating his own shooting space [A]. The next most-repeated attacking pattern in the notes is not a forward at all but Sammim Rahmani (#18), the left-back, breaking beyond the front line — recorded on three separate occasions, and the source of the penalty [B]. Both of Hilltop's recurring routes ran down the left.
+**The attacking threat was consistent but narrow.** AbdulWahab Mahamud (#20) on the left produced the first chance of the match, forced two further saves from Jake Simpson across the game, and converted the penalty [A]. The journalist names him Hilltop's player of the match, and the audio independently flags him as quick, tricky and capable of creating his own shooting space [A]. The next most-repeated attacking pattern in the notes is not a forward at all but Sammim Rahmani (#18), the left-back, breaking beyond the front line — recorded on three separate occasions, and the source of the penalty [B]. Both of Hilltop's recurring routes ran down the left.
 
 **The pattern that did not produce.** Every second-half goal kick went long and straight to Nadeer Kahssay (#9), against two centre-backs the notes describe as noticeably smaller and younger [B]. The return was two successful hold-ups, one duel won and one lost [A]. Kahssay was withdrawn on 66'.
 
@@ -48,7 +48,7 @@ Hilltop set up in a 4-2-1-3 and built from a split back four with both full-back
 
 *Expanding the key-moments rail on page 2, in match order.*
 
-**Early first half - Chance: Abdilhlwahab Mohamed** The first opening of the match. Mohamed cut inside onto his right foot from the left flank and struck a powerful effort from around 24 yards, tipped over the bar by Jake Simpson [C]. The audio does not capture this sequence; the live notes for this period are structural rather than event-driven.
+**Early first half - Chance: AbdulWahab Mahamud** The first opening of the match. Mahamud cut inside onto his right foot from the left flank and struck a powerful effort from around 24 yards, tipped over the bar by Jake Simpson [C]. The audio does not capture this sequence; the live notes for this period are structural rather than event-driven.
 
 **First half - Chances conceded** Two are captured in the audio: a cross that Hossam Hassan (#12) came out to contest with the striker and got a hand to, with the defence open behind him [A]; and a Hilltop midfield giveaway played straight to a Wokingham wide player and worked into the centre-forward, with Hassan making the save difficult [A]. Both accounts describe the remainder of the half as uneventful [A].
 
@@ -56,23 +56,23 @@ Hilltop set up in a 4-2-1-3 and built from a split back four with both full-back
 
 **Early second half - Chance: Mohamed Hussein** A powerful effort from distance — the audio puts it at thirty yards — described as a decent strike but straight at the goalkeeper and held [A]. The note attached is that Hussein had been given time to set himself [A].
 
-**Approx. 63' - Chance: Abdilhlwahab Mohamed** A lofted pass from Jack Yates (#5) over the Wokingham right-back released Mohamed down the left side of the box [A]. The audio adds that he mis-controlled it initially and recovered, with his agility and first touch creating the shooting space; the near-post effort was parried by Simpson [A].
+**Approx. 63' - Chance: AbdulWahab Mahamud** A lofted pass from Jack Yates (#5) over the Wokingham right-back released Mahamud down the left side of the box [A]. The audio adds that he mis-controlled it initially and recovered, with his agility and first touch creating the shooting space; the near-post effort was parried by Simpson [A].
 
 **65' - Yellow Card: Mohamed Hussein** Cautioned in the same minute as the opening goal [A]. He remained on a further fifteen minutes and continued to take Hilltop's set pieces before being withdrawn on 80' [A].
 
 **65' - Conceded (0-1)** Wokingham pressed a Hilltop player on the ball as Hilltop played out from defence, won possession, and moved it quickly to Moore on the edge of the box, who powered it beyond Hassan [A]. The audio's live read of the same sequence is "a little mix-up in the defence", centrally, around twenty yards out, with the finish going to the left-hand side of the net [A]. Both accounts agree the goal originated in a Hilltop turnover in their own build-up rather than in a constructed Wokingham move [A].
 
-**66' & 67' - Double Substitution: Kikambi for Kahssay, Benabbas for Okello** Both changes are recorded within seconds of each other in the live audio, which is why the note conflates them into a single substitution [A]. Benabbas (#21) took up the right, with Abdilhlwahab Mohamed (#20) moving inside and Hilltop's play tilting down the left [A].
+**66' & 67' - Double Substitution: Kikambi for Kahssay, Benabbas for Okello** Both changes are recorded within seconds of each other in the live audio, which is why the note conflates them into a single substitution [A]. Benabbas (#21) took up the right, with AbdulWahab Mahamud (#20) moving inside and Hilltop's play tilting down the left [A].
 
 **72' - Conceded (0-2)** A worked short-corner routine: the ball played short to Thomas Jordan, who turned past a Hilltop player on the edge of the box and lofted into the area; the close-range effort was parried by Hassan and the follow-up finished [A]. The live audio read the same phase as a corner "not cleared very well", headed out only as far as the edge of the area before dropping back in [C] — see *Source Reconciliation*.
 
 **80' - Substitution: Amin for Mohamed Hussein** The captain, deep-lying midfielder and set-piece taker withdrawn in one change with the side two behind [A]. The audio contains no observation of the reorganisation that followed.
 
-**84' - Goal: Abdilhlwahab Mohamed (pen) 1-2** Won by Sammim Rahmani (#18). A one-two between Rahmani and Ibrahim Benabbas (#21) put the left-back into the penalty area in behind the Wokingham defence, where he was fouled [A]. The audio captures the same moment from the touchline — the left-back bursting forward again, a player who likes to get forward a lot, through into the box and caught [A]. Mohamed converted, sending Simpson the wrong way [A].
+**84' - Goal: AbdulWahab Mahamud (pen) 1-2** Won by Sammim Rahmani (#18). A one-two between Rahmani and Ibrahim Benabbas (#21) put the left-back into the penalty area in behind the Wokingham defence, where he was fouled [A]. The audio captures the same moment from the touchline — the left-back bursting forward again, a player who likes to get forward a lot, through into the box and caught [A]. Mahamud converted, sending Simpson the wrong way [A].
 
 **Approx. 87' - Chance conceded** A first-time forward pass released Moore in behind the Hilltop defence, one-versus-one with Hassan inside the box; the low effort was turned behind by the goalkeeper coming out [C].
 
-**Late - Chance: Ibrahim Benabbas** A forward pass found Mohamed on the left of the Wokingham box; he squared it to Benabbas in the centre, whose low effort under pressure went wide of the right-hand post [C].
+**Late - Chance: Ibrahim Benabbas** A forward pass found Mahamud on the left of the Wokingham box; he squared it to Benabbas in the centre, whose low effort under pressure went wide of the right-hand post [C].
 
 ## Match Phases
 
@@ -84,7 +84,7 @@ Hilltop's problems in the phase are recorded as recurring rather than isolated: 
 The opposition offered little resistance to the build-up in this phase and little threat with the ball; both independent accounts converge on the same summary of the half after the opening exchanges — few chances either way [A].
 
 ### Phase 2: Hilltop's Best Spell (58-65 minutes)
-The second-half audio opens with Hilltop creating. Hussein's thirty-yard effort was held, and the Yates-to-Mohamed sequence drew a parried save [A]. The long-goal-kick pattern to Kahssay runs through this window [B], as does the note that Wokingham's offside line was repeatedly beatable [B].
+The second-half audio opens with Hilltop creating. Hussein's thirty-yard effort was held, and the Yates-to-Mahamud sequence drew a parried save [A]. The long-goal-kick pattern to Kahssay runs through this window [B], as does the note that Wokingham's offside line was repeatedly beatable [B].
 
 A separate note in the same window records an overload developing with no call from the full-back to organise it, and all instructions coming from the touchline rather than from the pitch [A]. A Hilltop corner produced static movement, with Hussein taking a front-post position without attacking the delivery [C].
 
@@ -102,13 +102,13 @@ The journalist records the final ten minutes as becoming a more open game, and t
 Mohamed Hussein (#6) is recorded as the set-piece taker, left-footed, standing over the attacking free kick on the edge of the box in the closing phase [A]. Hilltop's second-half corner drew the observation of static movement in the box, with Hussein taking a front-post position without attacking the ball, the note being that he would only be effective from a flick-on [C]. The audio records a sequence of corners in the first half — a second and third in short succession — with no short option taken [C]. After Hussein's withdrawal on 80', Hilltop's remaining attacking output came through open play down the left rather than from dead balls [C].
 
 ### Defending
-The first-half audio contains the most detailed set-piece observation in the match. Hilltop defended with man-marking plus one spare — the spare being Hussein Hussein (#8) in one instance and Jack Yates (#5) in another [B]. Wall construction varied between three-man and two-man across different situations [B]. Abdilhlwahab Mohamed (#20) is recorded as the outlet, positioned on the edge of the centre circle with everyone else back [B], with one note recording approximately thirty yards between the defensive unit and that outlet [C].
+The first-half audio contains the most detailed set-piece observation in the match. Hilltop defended with man-marking plus one spare — the spare being Hussein Hussein (#8) in one instance and Jack Yates (#5) in another [B]. Wall construction varied between three-man and two-man across different situations [B]. AbdulWahab Mahamud (#20) is recorded as the outlet, positioned on the edge of the centre circle with everyone else back [B], with one note recording approximately thirty yards between the defensive unit and that outlet [C].
 
 The 72nd-minute concession is the one that matters. It came from a defended corner in which the opposition took the delivery short: the danger was created by a turn on the edge of the box and a lofted ball into the area, against a Hilltop structure set for a delivery from the corner flag [A]. First contact in the box was won — Hassan parried — and the goal came from the follow-up [A].
 
 ## Tactical Variation and Substitutions
 
-The changes on 66' and 67' altered the front line rather than the structure — Kikambi as the central forward and Benabbas on the right, with Mohamed shifting inside and play tilting further to the left [A]. Both substitutes feature in what followed: Benabbas supplied the one-two for the penalty and had the final chance of the match [A].
+The changes on 66' and 67' altered the front line rather than the structure — Kikambi as the central forward and Benabbas on the right, with Mahamud shifting inside and play tilting further to the left [A]. Both substitutes feature in what followed: Benabbas supplied the one-two for the penalty and had the final chance of the match [A].
 
 The 80' withdrawal of Mohamed Hussein removed the captain, one half of the double pivot and the set-piece taker in a single change, with Mohammed Amin (#3) coming on [A]. The audio does not cover the reorganisation, and there is no record of who took over the deep midfield role or the dead balls in the closing ten minutes.
 
@@ -116,7 +116,7 @@ The 80' withdrawal of Mohamed Hussein removed the captain, one half of the doubl
 
 Player notes recorded live, cross-checked against the two written accounts where they overlap.
 
-**Abdilhlwahab Mohamed (#20)** — Left-sided, recorded as quick and tricky [B]. Produced the first chance of the match from a cut inside onto his right foot [C], forced a parried save after Yates' lofted pass [A], and converted the penalty [A]. Good agility and first touch to create shooting space [A]. Beat his man down the line and delivered a cross in the first half with nobody attacking it [A]. Named Hilltop's player of the match by the covering journalist [A].
+**AbdulWahab Mahamud (#20)** — Left-sided, recorded as quick and tricky [B]. Produced the first chance of the match from a cut inside onto his right foot [C], forced a parried save after Yates' lofted pass [A], and converted the penalty [A]. Good agility and first touch to create shooting space [A]. Beat his man down the line and delivered a cross in the first half with nobody attacking it [A]. Named Hilltop's player of the match by the covering journalist [A].
 
 **Mohamed Hussein (#6)** — Captain and tallest player on the pitch, approximately 6'4" [B]. Deeper of the two pivots, stepping up from between the centre-backs in build-up [A]. Left-footed set-piece taker [A]. Long-range shooting threat, with an effort from distance held by Simpson [A]. Recorded as slow to drop back into the space in front of the defence [B]. Cautioned 65', withdrawn 80' [A].
 
@@ -132,11 +132,11 @@ Player notes recorded live, cross-checked against the two written accounts where
 
 **Hussein Hussein (#8)** — Left centre-back, described as very slight [A]. Recorded taking a heavy touch under no immediate pressure, being closed down and dispossessed [A]. Named as the spare man in a second set-piece structure [C].
 
-**Hossam Hassan (#12)** — Came out to contest a first-half cross and got a hand to it, with the defence open behind [A]. Made a save into his body immediately before the opening goal [A]. Parried the close-range effort that led to the second [A]. Turned a one-on-one behind late on [C]. Described in the audio as very young [C].
+**Hossam Hassan (#12)** — Came out to contest a first-half cross and got a hand to it, with the defence open behind [A]. Made a save into his body immediately before the opening goal [A]. Parried the close-range effort that led to the second [A]. Turned a one-on-one behind late on [C].
 
 **Ibrahim Benabbas (#21)** — On 67' to the right [A]. Supplied the one-two for the penalty [A] and had Hilltop's final chance, low and wide of the right-hand post under pressure [C].
 
-**Micheal Kikambi (#11)** — On 66' as the central forward [A]. The audio records a #11 as lively with a couple of shots in the closing period [C]; neither written account corroborates this, and the number is not independently confirmed.
+**Micheal Kikambi (#11)** — On 66' as the central forward [A]. Lively from the moment he came on, with a couple of shots in the closing period [A]. Neither written account mentions him; this is carried on the audio and the coach's confirmation.
 
 **Abukar Mohamed (#14)** — Recorded making forward runs beyond the ball, including one past a teammate that worked well but left ground to recover [B]. Noted as quick [C].
 
