@@ -91,4 +91,4 @@ The game tells you they will keep playing their way regardless of what it is cos
 
 ---
 
-*Built from the coach's live touchline notes, the official match record and an independent report of the same fixture. Where the notes and the written accounts disagreed, the written accounts were followed.*
+*From Michael Smith's live match observations — Hilltop 1-2 Wokingham Town, Silver Jubilee Park, 31 July 2026.*
