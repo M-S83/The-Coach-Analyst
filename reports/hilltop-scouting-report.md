@@ -10,7 +10,7 @@ Their danger is almost entirely down their left: AbdulWahab Mahamud (#20, LW), w
 
 Five things to do:
 
-1. **Press their goalkeeper and centre-backs.** They will keep playing short into it.
+1. **Press their goalkeeper and centre-backs.** They want to play short and will keep trying it. Squeeze it and they turn it over; sit off and they go long anyway.
 2. **Put the ball in behind their back four.** There is no pace across it.
 3. **Let their centre-backs come, then hit the space they leave.** Give them room and they will carry it forward. Mohamed Hussein (#6, DM) is slow to drop in and cover behind them.
 4. **Get at Rinalds Jurkstis (#10, DM).** He gives it away under pressure and shows you where the pass is going.
@@ -28,6 +28,12 @@ The centre-backs will also travel forward with the ball if you let them. Left un
 
 **Press the build-up.** This is the main one. They play short from goal kicks and from the back into a flat, static picture — the players ahead of the ball don't move to show for it, so the man in possession has one obvious option and takes it. They got away with it for an hour against Wokingham purely because Wokingham didn't press. The one time Wokingham did — closing a player down after they'd worked it out of defence — they won it 25 yards from goal and scored inside seconds. Jurkstis (#10, DM) is the man to press: he gave it away several times, and his body shape tells you where the pass is going before he plays it. Hussein Hussein (#8, LCB) also takes heavy touches with nobody near him.
 
+**Whatever they intend, the ball ends up in the same two places.** Short is the plan — from goal kicks, from the back, and from the keeper's hands — and if you allow it, that is what they do. But nobody in front of the ball moves to offer a second option, so the man in possession runs out of ideas and goes long anyway, usually into the half-space. And when it isn't short, it is straight and direct to Nadeer Kahssay (#9, CF). Same picture whether the keeper has it at his feet or in his hands.
+
+That gives you the choice. Press it and you win it high in a dangerous area. Sit off, let them start short, and set your line and your second-ball structure for the long ball you already know is coming — half-space or centre-forward, there is no third option.
+
+Kahssay (#9, CF) himself is manageable. He held it up twice and lost as many duels as he won, and that was against centre-backs he had a clear physical advantage over. A decent centre-back deals with him. Push your line up and squeeze what drops.
+
 **Play in behind.** There is no recovery pace in the back four. Hussein Hussein (#8, LCB) is slight as well as slow. Their offside line was beatable several times in the game and they got away with it.
 
 **Use the space in front of and behind the centre-backs.** Two separate problems that compound each other. Mohamed Hussein (#6, DM) steps up out of the screening position and is slow to drop back into it, so there is a repeated hole between their back four and their midfield. On top of that, if you don't engage them, the centre-backs carry the ball forward out of the line themselves — and nobody fills the space they leave. Show them the ball, let one step in, then play into the gap he came from. It also means the moment you win it, their back line is a man short and unbalanced.
@@ -37,8 +43,6 @@ The centre-backs will also travel forward with the ball if you let them. Left un
 **Second balls.** Their clearances from the back get swiped rather than struck properly. Set up to win what drops around the edge of their box.
 
 **They don't talk.** Wokingham got an overload on one side and nobody in the Hilltop back four called it — every instruction came from the touchline. If you can create a numbers-up situation quickly, they are slow to sort it.
-
-**Their goalkeeper goes long to the number 9.** In the second half every goal kick went straight down the middle to Kahssay (#9, CF). He held it up twice and lost as many duels as he won, against centre-backs he had a clear physical advantage over. A decent centre-back deals with him. Push your line up and squeeze the second ball.
 
 ## What they'll hurt you with
 
