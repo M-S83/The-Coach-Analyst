@@ -1,0 +1,21 @@
+# Temporary: checks which appearance-data sources the runner can reach.
+name: Probe appearance sources
+on:
+  push:
+    branches-ignore: ["main"]
+    paths: [".github/workflows/probe.yml"]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          H='-H Origin:https://www.premierleague.com -H Referer:https://www.premierleague.com/ -A Mozilla/5.0'
+          for u in \
+            "https://footballapi.pulselive.com/football/competitions/1/compseasons?page=0&pageSize=3" \
+            "https://footballapi.pulselive.com/football/players?pageSize=2&compSeasons=719&altIds=true&page=0&type=player" \
+            "https://footballapi.pulselive.com/football/stats/player/5178?comps=1" \
+            "https://sdp-prem-prod.premier-league-prod.pulselive.com/api/v1/competitions/8/seasons" \
+            "https://fbref.com/en/comps/9/history/Premier-League-Seasons" \
+            "https://www.worldfootball.net/players_list/eng-premier-league-2023-2024/" ; do
+            echo "=== $u"; curl -sS -m 30 $H -o /tmp/o -w "HTTP %{http_code} %{size_download}B\n" "$u"; head -c 700 /tmp/o; echo
+          done
