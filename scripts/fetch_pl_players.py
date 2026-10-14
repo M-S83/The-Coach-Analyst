@@ -42,7 +42,7 @@ PL_CLUBS = [
 ]
 
 
-def get_json(url, data=None, tries=5):
+def get_json(url, data=None, tries=4):
     for attempt in range(tries):
         try:
             req = urllib.request.Request(url, data=data, headers={
@@ -136,25 +136,60 @@ SELECT ?pob ?n WHERE {{
 
 
 def fetch_clubs(people):
-    club_values = " ".join('"%s"@en' % t.replace('"', '\\"') for t in PL_CLUBS)
-    for batch in chunks(list(people), 150):
-        values = " ".join("wd:" + q for q in batch)
-        rows = sparql(f"""
-SELECT ?p ?title ?start ?end WHERE {{
-  VALUES ?p {{ {values} }}
-  VALUES ?title {{ {club_values} }}
+    titles = " ".join('"%s"@en' % t for t in PL_CLUBS)
+    rows = sparql(f"""
+SELECT ?club ?title WHERE {{
+  VALUES ?title {{ {titles} }}
   ?article schema:about ?club ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?title .
+}}""")
+    clubs = {r["club"]["value"].rsplit("/", 1)[1]: r["title"]["value"] for r in rows}
+    missing = set(PL_CLUBS) - set(clubs.values())
+    if missing:
+        print(f"  clubs not found on Wikidata: {sorted(missing)}", file=sys.stderr)
+    club_values = " ".join("wd:" + q for q in clubs)
+    for batch in chunks(list(people), 100):
+        values = " ".join("wd:" + q for q in batch)
+        try:
+            rows = sparql(f"""
+SELECT ?p ?club ?start ?end WHERE {{
+  VALUES ?p {{ {values} }}
+  VALUES ?club {{ {club_values} }}
   ?p p:P54 ?st . ?st ps:P54 ?club .
   OPTIONAL {{ ?st pq:P580 ?start }} OPTIONAL {{ ?st pq:P582 ?end }}
 }}""")
+        except RuntimeError as e:  # club spells are a nice-to-have; keep going
+            print(f"  skipped a club batch: {e}", file=sys.stderr)
+            continue
         for r in rows:
             q = r["p"]["value"].rsplit("/", 1)[1]
-            club = r["title"]["value"]
+            club = clubs[r["club"]["value"].rsplit("/", 1)[1]]
             for suffix in (" F.C.", " A.F.C."):
                 club = club.removesuffix(suffix)
             spell = [club, r.get("start", {}).get("value", "")[:4], r.get("end", {}).get("value", "")[:4]]
             if spell not in people[q]["clubs"]:
                 people[q]["clubs"].append(spell)
+
+
+def nation_from_coords(lat, lon):
+    """Rough fallback for UK birthplaces whose Wikidata entry lacks an admin-area chain."""
+    if lon < -5.4 and 54.0 < lat < 55.4:
+        return "Northern Ireland"
+    if lat > 55.8 or (lat > 55.0 and lon < -2.6 and not (lat < 55.2 and lon > -3.1)):
+        return "Scotland"
+    # English-Welsh border as longitude steps, south to north
+    border = -2.68 if lat < 51.85 else -3.05 if lat < 52.9 else -2.75 if lat < 53.1 else -3.0
+    if 51.35 < lat < 53.45 and lon < border:
+        return "Wales"
+    return "England"
+
+
+def uk_places(pob_ids):
+    found = set()
+    for batch in chunks(sorted(pob_ids), 150):
+        values = " ".join("wd:" + q for q in batch)
+        for r in sparql(f"SELECT ?pob WHERE {{ VALUES ?pob {{ {values} }} ?pob wdt:P17 wd:Q145 . }}"):
+            found.add(r["pob"]["value"].rsplit("/", 1)[1])
+    return found
 
 
 def main():
@@ -168,9 +203,15 @@ def main():
     people = fetch_people(list(qids))
     print("4/5 Home nation of each birthplace...", file=sys.stderr)
     nation = classify_places({p["pobId"] for p in people.values()})
+    unclassified = {p["pobId"] for p in people.values()} - set(nation)
+    fallback = uk_places(unclassified)
+    print(f"  {len(fallback)} UK birthplaces placed by coordinates", file=sys.stderr)
     uk = {}
     for q, p in people.items():
         n = nation.get(p["pobId"])
+        if not n and p["pobId"] in fallback:
+            n = nation_from_coords(p["lat"], p["lon"])
+            p["approxNation"] = True
         if n:
             p["nation"] = n
             uk[q] = p
