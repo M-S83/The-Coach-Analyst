@@ -403,7 +403,7 @@ function shiftPanel(cells, na, nb) {
   });
 }
 function sourceNote() {
-  return `<p class="note">Source: Wikipedia “Premier League players” category + Wikidata${hasApps ? '; appearances from premierleague.com' : ''}, ${esc(meta.generated || '')}. Birthplace is as recorded, often the town of the maternity hospital.</p>`;
+  return `<p class="note">Source: Wikipedia “Premier League players” category + Wikidata${hasApps ? '; appearances from premierleague.com' : ''}, ${esc(meta.generated || '')}. Birthplace is as recorded, often the town of the maternity hospital.${hasApps ? ` ${ALL.filter(p => (state.nation === 'UK' || p.nation === state.nation) && p.apps == null).length} players couldn't be matched to an appearance total, so they drop out when you filter by appearances.` : ''}</p>`;
 }
 function weightToggle() {
   if (!hasApps) return '';
