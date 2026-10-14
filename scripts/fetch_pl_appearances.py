@@ -107,10 +107,11 @@ def main():
         name = f.get("name", {})
         surname = set(norm(name.get("last", "")) + norm(name.get("display", ""))[-1:])
         hit = [c for c in cands if surname & set(norm(c["name"]))]
-        if len(hit) != 1 and len(cands) == 1:
-            hit = cands
+        if not hit:  # known-as names ("Ashley Young" vs a full legal surname): any name word in common
+            words = set(norm(" ".join(str(v) for v in name.values()))) - {"de", "van", "da", "jr"}
+            hit = [c for c in cands if words & set(norm(c["name"]))]
         if len(hit) == 1:
-            hit[0]["apps"] = apps[pid]
+            hit[0]["apps"] = max(apps[pid], hit[0].get("apps", 0))
             matched += 1
         else:
             unmatched.append(f)
