@@ -55,6 +55,10 @@
   .ramp { height: 8px; border-radius: 2px; margin: 6px 0 2px; }
   .ramp-labels { display: flex; justify-content: space-between; }
   input[type=range] { width: 100%; }
+  .seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 999px; background: var(--line); margin: 0 0 8px; }
+  .seg button { border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; cursor: pointer; }
+  .seg button.on { background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.15); }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   .detail { position: absolute; right: 16px; top: 110px; width: 300px; max-height: calc(100% - 230px); overflow: auto;
     background: var(--panel); border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,.12); padding: 12px 14px; z-index: 3; display: none; }
@@ -115,6 +119,14 @@
       <option value="Wales">Wales</option>
       <option value="Northern Ireland">Northern Ireland</option>
     </select>
+    <br><select id="minApps" aria-label="Minimum Premier League appearances" hidden>
+      <option value="0">Any PL appearances</option>
+      <option value="10">10+ appearances</option>
+      <option value="50">50+ appearances</option>
+      <option value="100">100+ appearances</option>
+      <option value="200">200+ appearances</option>
+      <option value="300">300+ appearances</option>
+    </select>
   </div>
 </header>
 
@@ -149,9 +161,12 @@ const DIV_UP = [26,120,140], DIV_DOWN = [200,60,40];
 
 const state = {
   mode: 'period', nation: 'England', from: 0, to: 0, minYear: 0, maxYear: 0,
-  hidden: new Set(), split: 1980, playing: null,
+  hidden: new Set(), split: 1980, playing: null, minApps: 0, weight: "players", arrivingFrom: 9999,
 };
-let ALL = [], players = [], places = new Map(), meta = {};
+let ALL = [], players = [], places = new Map(), meta = {}, hasApps = false;
+// Hotspots and Shift can count heads or Premier League appearances.
+const w = p => state.weight === 'apps' ? (p.apps || 0) : 1;
+const unit = () => state.weight === 'apps' ? 'appearances' : 'players';
 
 // ---------- map ----------
 // Self-contained basemap: sea background plus UK and Ireland coastlines, coloured from the theme tokens.
@@ -191,11 +206,15 @@ fetch('data/players.json').then(r => { if (!r.ok) throw 0; return r.json(); }).t
   const years = ALL.map(p => p.year);
   state.minYear = Math.min(...years); state.maxYear = Math.max(...years);
   state.from = state.minYear; state.to = state.maxYear;
+  // Players this young are mostly yet to debut, so their birth years are still filling in.
+  state.arrivingFrom = +String(d.generated || '').slice(0, 4) - 22 || 9999;
+  hasApps = ALL.some(p => p.apps != null);
+  document.getElementById('minApps').hidden = !hasApps;
   applyNation();
 }).catch(() => { document.getElementById('notice').style.display = 'grid'; });
 
 function applyNation() {
-  players = ALL.filter(p => state.nation === 'UK' || p.nation === state.nation);
+  players = ALL.filter(p => (state.nation === 'UK' || p.nation === state.nation) && (!state.minApps || (p.apps || 0) >= state.minApps));
   document.getElementById('nationTitle').textContent = state.nation === 'UK' ? 'United Kingdom' : state.nation;
   // group by birthplace coordinate
   places = new Map();
@@ -243,9 +262,10 @@ function aggregate(list) {
     const c = cellOf(p);
     if (!cells.has(c.key)) cells.set(c.key, { ...c, n: 0, names: new Map(), players: [] });
     const cell = cells.get(c.key);
-    cell.n++; cell.players.push(p);
+    cell.n += w(p); cell.players.push(p);
     cell.names.set(p.place, (cell.names.get(p.place) || 0) + 1);
   }
+  for (const c of [...cells.values()]) if (!c.n) cells.delete(c.key);
   for (const c of cells.values()) c.name = [...c.names].sort((a, b) => b[1] - a[1])[0][0];
   return cells;
 }
@@ -262,17 +282,17 @@ function render() {
   document.getElementById('rangeLabel').textContent =
     state.mode === 'shift' ? `${state.minYear}–${state.maxYear}` : (state.from === state.to ? state.from : `${state.from}–${state.to}`);
   document.getElementById('countLabel').textContent =
-    `${(state.mode === 'shift' ? players.length : shown.length).toLocaleString('en-GB')} players`;
+    `${(state.mode === 'shift' ? players.length : shown.length).toLocaleString('en-GB')} players${state.minApps ? ` · ${state.minApps}+ apps` : ''}`;
 
   let layers = [];
   if (state.mode === 'period') {
     layers = [new deck.ColumnLayer({
       id: 'players', data: shown, diskResolution: 6, radius: dotSpacing * 0.42, extruded: true,
       getPosition: p => [p.x, p.y], getFillColor: p => periodOf(p.year).color,
-      getElevation: 1, elevationScale: dotSpacing * 2.2, pickable: true, autoHighlight: true,
+      getElevation: p => hasApps ? 0.35 + Math.sqrt(p.apps || 0) / 7 : 1, elevationScale: dotSpacing * 2.2, pickable: true, autoHighlight: true,
       highlightColor: [0, 0, 0, 160],
       onClick: ({ object }) => object && showPlace(places.get(object.lat + ',' + object.lon).players.filter(visible), object.place),
-      updateTriggers: { getPosition: dotSpacing },
+      updateTriggers: { getPosition: dotSpacing, getElevation: hasApps },
     })];
     periodPanel(shown);
   } else if (state.mode === 'hotspots') {
@@ -294,9 +314,9 @@ function render() {
     const cells = [];
     for (const k of keys) {
       const ca = a.get(k), cb = b.get(k), base = ca || cb;
-      const total = (ca?.n || 0) + (cb?.n || 0);
+      const total = (ca?.players.length || 0) + (cb?.players.length || 0);
       if (total < 3) continue;
-      const delta = ((cb?.n || 0) / nb - (ca?.n || 0) / na) * 100; // percentage points of all players
+      const delta = ((cb?.n || 0) / nb - (ca?.n || 0) / na) * 100; // percentage points of the whole generation
       cells.push({ lon: base.lon, lat: base.lat, name: (cb || ca).name, delta, a: ca?.n || 0, b: cb?.n || 0,
         players: [...(ca?.players || []), ...(cb?.players || [])] });
     }
@@ -320,8 +340,8 @@ function render() {
 function getTooltip({ object, layer }) {
   if (!object) return null;
   const style = { background: css('--accent'), color: css('--on-accent'), fontSize: '12px', padding: '6px 8px', borderRadius: '4px' };
-  if (layer.id === 'players') return { html: `<b>${esc(object.name)}</b><br>${esc(object.place)} · ${fmtDate(object.dob)}`, style };
-  if (layer.id === 'hot') return { html: `<b>Around ${esc(object.name)}</b><br>${object.n} players`, style };
+  if (layer.id === 'players') return { html: `<b>${esc(object.name)}</b><br>${esc(object.place)} · ${fmtDate(object.dob)}${object.apps != null ? `<br>${object.apps} PL appearances` : ''}`, style };
+  if (layer.id === 'hot') return { html: `<b>Around ${esc(object.name)}</b><br>${object.n.toLocaleString('en-GB')} ${unit()} · ${object.players.length} players`, style };
   return { html: `<b>Around ${esc(object.name)}</b><br>Born before ${state.split}: ${object.a}<br>Born ${state.split}+: ${object.b}<br>Share change: ${object.delta >= 0 ? '+' : ''}${object.delta.toFixed(2)} pts`, style };
 }
 
@@ -333,8 +353,9 @@ function periodPanel(shown) {
     const n = inWin.filter(x => periodOf(x.year) === p).length;
     return `<div class="row ${state.hidden.has(p.key) ? 'off' : ''}" data-key="${p.key}">
       <span class="sw" style="background:${rgb(p.color)}"></span><span class="label">${p.label}</span>
-      <span class="num">${n.toLocaleString('en-GB')}</span></div>`;
-  }).join('') + `<p class="note">Click a period to hide or show it. Each column is one player, clustered around the town they were born in. Click a cluster to list its players.</p>` + sourceNote();
+      <span class="num">${n.toLocaleString('en-GB')}${p.to >= state.arrivingFrom ? ' so far' : ''}</span></div>`;
+  }).join('') + `<p class="note"><b>Still filling in:</b> most players born from ${state.arrivingFrom} on haven't made their Premier League debut yet, so recent birth years will keep growing (hatched on the timeline).</p>
+  <p class="note">Click a period to hide or show it. Each column is one player, clustered around the town they were born in${hasApps ? '; taller columns played more Premier League games' : ''}. Click a cluster to list its players.</p>` + sourceNote();
   panel.querySelectorAll('.row').forEach(el => el.onclick = () => {
     const k = el.dataset.key;
     // first click isolates, later clicks toggle
@@ -346,11 +367,12 @@ function periodPanel(shown) {
 }
 function hotspotPanel(cells) {
   const top = cells.sort((a, b) => b.n - a.n).slice(0, 15);
-  panel.innerHTML = `<h2>Biggest hotspots, ${state.from}–${state.to}</h2>
+  panel.innerHTML = `<h2>Biggest hotspots, ${state.from}–${state.to}</h2>${weightToggle()}
     <div class="ramp" style="background:linear-gradient(90deg,${HOT.map(rgb).join(',')})"></div>
-    <div class="ramp-labels num"><span>fewer</span><span>more players</span></div>` +
-    top.map((c, i) => `<div class="rank" data-i="${i}"><b>${i + 1}</b><span>${esc(c.name)}</span><span class="num">${c.n}</span></div>`).join('') +
-    `<p class="note">Players grouped into ~20 km squares, named after the most common birthplace inside. These are raw counts, so big cities lead. Drag the timeline to compare generations.</p>` + sourceNote();
+    <div class="ramp-labels num"><span>fewer</span><span>more ${unit()}</span></div>` +
+    top.map((c, i) => `<div class="rank" data-i="${i}"><b>${i + 1}</b><span>${esc(c.name)}</span><span class="num">${c.n.toLocaleString('en-GB')}</span></div>`).join('') +
+    `<p class="note">${state.weight === 'apps' ? 'Premier League appearances by players born' : 'Players born'} in each ~20 km square, named after the most common birthplace inside. These are raw counts, so big cities lead. Drag the timeline to compare generations.</p>` + sourceNote();
+  bindWeight();
   panel.querySelectorAll('.rank').forEach(el => el.onclick = () => {
     const c = top[+el.dataset.i];
     map.flyTo({ center: [c.lon, c.lat], zoom: 9 });
@@ -361,36 +383,45 @@ function shiftPanel(cells, na, nb) {
   const up = [...cells].sort((a, b) => b.delta - a.delta).slice(0, 6);
   const down = [...cells].sort((a, b) => a.delta - b.delta).slice(0, 6);
   const list = (arr, sign) => arr.map(c => `<div class="rank" data-k="${c.lon},${c.lat}"><span>${esc(c.name)}</span>
-    <span class="num">${c.a} → ${c.b} &nbsp;${sign}${Math.abs(c.delta).toFixed(1)} pts</span></div>`).join('');
-  panel.innerHTML = `<h2>Where the talent comes from has shifted</h2>
+    <span class="num">${c.a.toLocaleString('en-GB')} → ${c.b.toLocaleString('en-GB')} &nbsp;${sign}${Math.abs(c.delta).toFixed(1)} pts</span></div>`).join('');
+  panel.innerHTML = `<h2>Where the talent comes from has shifted</h2>${weightToggle()}
     <label class="num">Compare players born before / from <b id="splitVal">${state.split}</b></label>
     <input type="range" id="split" min="${state.minYear + 5}" max="${state.maxYear - 5}" value="${state.split}">
-    <div class="num">${na.toLocaleString('en-GB')} before · ${nb.toLocaleString('en-GB')} from</div>
+    <div class="num">${na.toLocaleString('en-GB')} ${unit()} before · ${nb.toLocaleString('en-GB')} from</div>
     <div class="ramp" style="background:linear-gradient(90deg,${rgb(DIV_DOWN)},#ebebeb,${rgb(DIV_UP)})"></div>
     <div class="ramp-labels num"><span>smaller share</span><span>bigger share</span></div>
     <h2 style="margin-top:12px">Growing</h2>${list(up.filter(c => c.delta > 0), '+')}
     <h2 style="margin-top:12px">Shrinking</h2>${list(down.filter(c => c.delta < 0), '−')}
-    <p class="note">Each square's share of all players in each generation, and how many percentage points it gained or lost. Shares make the two generations comparable even though they differ in size. Squares with fewer than 3 players are hidden.</p>` + sourceNote();
+    <p class="note">Each square's share of all ${unit()} in each generation, and how many percentage points it gained or lost. Shares make the two generations comparable even though they differ in size. Squares with fewer than 3 players are hidden.</p>` + sourceNote();
   const s = document.getElementById('split');
   s.oninput = () => { document.getElementById('splitVal').textContent = s.value; };
   s.onchange = () => { state.split = +s.value; render(); };
+  bindWeight();
   panel.querySelectorAll('.rank').forEach(el => el.onclick = () => {
     const [lon, lat] = el.dataset.k.split(',').map(Number);
     map.flyTo({ center: [lon, lat], zoom: 8.5 });
   });
 }
 function sourceNote() {
-  return `<p class="note">Source: Wikipedia “Premier League players” category + Wikidata, ${esc(meta.generated || '')}. Birthplace is as recorded, often the town of the maternity hospital.</p>`;
+  return `<p class="note">Source: Wikipedia “Premier League players” category + Wikidata${hasApps ? '; appearances from premierleague.com' : ''}, ${esc(meta.generated || '')}. Birthplace is as recorded, often the town of the maternity hospital.</p>`;
+}
+function weightToggle() {
+  if (!hasApps) return '';
+  return `<div class="seg" role="group" aria-label="Count by">${['players', 'apps'].map(k =>
+    `<button data-w="${k}" class="${state.weight === k ? 'on' : ''}">${k === 'apps' ? 'PL appearances' : 'Players'}</button>`).join('')}</div>`;
+}
+function bindWeight() {
+  panel.querySelectorAll('.seg button').forEach(b => b.onclick = () => { state.weight = b.dataset.w; render(); });
 }
 
 // ---------- place detail ----------
 const detail = document.getElementById('detail');
 function showPlace(list, title) {
   detail.innerHTML = `<button class="close" aria-label="Close">×</button><h2 style="margin:0 0 4px">${esc(title)}</h2>
-    <div class="num" style="margin-bottom:6px">${list.length} players</div>` +
+    <div class="num" style="margin-bottom:6px">${list.length} players${hasApps ? ` · ${list.reduce((s, p) => s + (p.apps || 0), 0).toLocaleString('en-GB')} PL appearances` : ''}</div>` +
     list.slice(0, 300).map(p => `<div class="player"><span class="sw" style="display:inline-block;margin-right:6px;background:${rgb(periodOf(p.year).color)}"></span>
-      <a href="https://www.wikidata.org/wiki/${p.id}" target="_blank" rel="noopener">${esc(p.name)}</a>
-      <div class="num">${fmtDate(p.dob)} · ${esc(p.place)}${p.pos ? ' · ' + esc(p.pos) : ''}</div>
+      ${p.id ? `<a href="https://www.wikidata.org/wiki/${p.id}" target="_blank" rel="noopener">${esc(p.name)}</a>` : `<b>${esc(p.name)}</b>`}
+      <div class="num">${fmtDate(p.dob)} · ${esc(p.place)}${p.pos ? ' · ' + esc(p.pos) : ''}${p.apps != null ? ` · <b>${p.apps}</b> PL apps` : ''}</div>
       ${p.clubs.length ? `<div class="clubs">${p.clubs.map(c => esc(c[0]) + (c[1] ? ` (${c[1]}${c[2] && c[2] !== c[1] ? '–' + c[2] : ''})` : '')).join(', ')}</div>` : ''}</div>`).join('') +
     (list.length > 300 ? `<p class="note">Showing the first 300.</p>` : '');
   detail.classList.add('show');
@@ -405,6 +436,19 @@ function x2year(x) {
   return Math.round(state.minYear + Math.max(0, Math.min(1, (x - PAD) / w)) * (state.maxYear - state.minYear));
 }
 function year2x(y) { return PAD + (y - state.minYear) / Math.max(1, state.maxYear - state.minYear) * (cv.clientWidth - PAD * 2); }
+const hatches = {};
+function hatch(c) {
+  const k = c.join();
+  if (!hatches[k]) {
+    const t = document.createElement('canvas'); t.width = t.height = 6;
+    const g = t.getContext('2d');
+    g.fillStyle = `rgba(${k},.35)`; g.fillRect(0, 0, 6, 6);
+    g.strokeStyle = rgb(c); g.lineWidth = 1.6;
+    g.beginPath(); g.moveTo(-1, 7); g.lineTo(7, -1); g.stroke();
+    hatches[k] = ctx.createPattern(t, 'repeat');
+  }
+  return hatches[k];
+}
 function drawHist() {
   const dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
   if (cv.width !== W * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
@@ -419,10 +463,14 @@ function drawHist() {
     const n = counts[y] || 0, h = n / max * (base - top);
     const on = state.mode === 'shift' || (y >= state.from && y <= state.to);
     const c = periodOf(y).color;
-    ctx.globalAlpha = on ? 1 : .2; ctx.fillStyle = rgb(c);
+    ctx.globalAlpha = on ? 1 : .2; ctx.fillStyle = y >= state.arrivingFrom ? hatch(c) : rgb(c);
     ctx.fillRect(year2x(y) - bw / 2, base - h, bw, h);
   }
   ctx.globalAlpha = 1;
+  if (state.arrivingFrom <= state.maxYear) {
+    ctx.fillStyle = css('--muted'); ctx.font = '10px ui-monospace, Menlo, monospace'; ctx.textAlign = 'left';
+    ctx.fillText('still filling in →', year2x(state.arrivingFrom) - bw / 2, top + 2);
+  }
   ctx.fillStyle = css('--muted'); ctx.font = '10px ui-monospace, Menlo, monospace'; ctx.textAlign = 'center';
   const step = W < 600 ? 10 : 5;
   for (let y = Math.ceil(state.minYear / step) * step; y <= state.maxYear; y += step) ctx.fillText(y, year2x(y), H - 7);
@@ -479,6 +527,9 @@ function setMode(m) {
   render();
 }
 document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.getElementById('minApps').onchange = e => {
+  state.minApps = +e.target.value; detail.classList.remove('show'); applyNation();
+};
 document.getElementById('nation').onchange = e => {
   state.nation = e.target.value; detail.classList.remove('show'); applyNation();
   if (state.nation === 'Scotland') map.flyTo({ center: [-4.2, 56.3], zoom: 6 });
