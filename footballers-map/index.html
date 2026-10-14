@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Born to Play</title>
+<meta name="description" content="Every Premier League player born in England, mapped by date and place of birth." />
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/deck.gl@9.0.41/dist.min.js"></script>
+<style>
+  :root {
+    --bg: #eceeef; --ink: #111; --muted: #6b6f73; --panel: rgba(255,255,255,.94);
+    --line: #d9dcdf; --accent: #111;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
+    font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden; }
+  #map { position: absolute; inset: 0 0 92px 0; }
+  .num { font-variant-numeric: tabular-nums; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; color: var(--muted); }
+
+  header { position: absolute; top: 16px; left: 16px; right: 16px; display: flex; align-items: flex-start;
+    justify-content: space-between; pointer-events: none; z-index: 2; gap: 12px; }
+  header > * { pointer-events: auto; }
+  .title h1 { margin: 0; font-size: 34px; letter-spacing: -.02em; line-height: 1; font-weight: 800; }
+  .title h1 span { display: inline-block; width: 6px; height: 28px; background: #c0392b; margin-right: 8px; vertical-align: -2px; }
+  .title p { margin: 6px 0 0; color: var(--muted); max-width: 260px; }
+  .tabs { display: flex; gap: 2px; background: #fff; border-radius: 999px; padding: 3px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+  .tabs button { border: 0; background: transparent; padding: 6px 14px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; color: var(--ink); }
+  .tabs button.on { background: var(--accent); color: #fff; }
+  .today { text-align: right; }
+  .today .big { font-size: 34px; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+  .today select { margin-top: 8px; font: inherit; border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; background: #fff; }
+
+  .panel { position: absolute; left: 16px; top: 110px; width: 280px; max-height: calc(100% - 230px); overflow: auto;
+    background: var(--panel); border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,.12); padding: 12px 14px; z-index: 2; }
+  .panel h2 { margin: 0 0 8px; font-size: 13px; }
+  .panel .note { color: var(--muted); font-size: 11px; margin: 8px 0 0; }
+  .row { display: flex; align-items: center; gap: 8px; padding: 3px 4px; border-radius: 4px; cursor: pointer; }
+  .row:hover { background: rgba(0,0,0,.05); }
+  .row.off { opacity: .35; }
+  .sw { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+  .row .label { flex: 1; }
+  .rank { display: flex; gap: 8px; padding: 3px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .rank:last-child { border-bottom: 0; }
+  .rank b { width: 18px; color: var(--muted); font-weight: 600; }
+  .rank span:nth-child(2) { flex: 1; }
+  .ramp { height: 8px; border-radius: 2px; margin: 6px 0 2px; }
+  .ramp-labels { display: flex; justify-content: space-between; }
+  input[type=range] { width: 100%; }
+
+  .detail { position: absolute; right: 16px; top: 110px; width: 300px; max-height: calc(100% - 230px); overflow: auto;
+    background: var(--panel); border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,.12); padding: 12px 14px; z-index: 3; display: none; }
+  .detail.show { display: block; }
+  .detail .close { float: right; border: 0; background: none; font-size: 18px; cursor: pointer; line-height: 1; }
+  .player { padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .player:last-child { border-bottom: 0; }
+  .player a { color: var(--ink); font-weight: 600; text-decoration: none; }
+  .player a:hover { text-decoration: underline; }
+  .player .clubs { color: var(--muted); font-size: 11px; }
+
+  .timeline { position: absolute; left: 0; right: 0; bottom: 0; height: 92px; background: #fff; border-top: 1px solid var(--line);
+    display: flex; align-items: stretch; z-index: 2; }
+  .play { width: 56px; display: grid; place-items: center; flex: none; }
+  .play button { width: 30px; height: 30px; border-radius: 50%; border: 0; background: var(--accent); color: #fff; cursor: pointer; font-size: 12px; }
+  #hist { flex: 1; min-width: 0; width: 100%; height: 100%; touch-action: none; cursor: ew-resize; display: block; }
+  .hint { position: absolute; right: 64px; bottom: 100px; color: var(--muted); font-size: 11px; z-index: 1; }
+
+  .notice { position: absolute; inset: 0; display: none; place-items: center; z-index: 10; background: rgba(236,238,239,.92); }
+  .notice div { background: #fff; padding: 20px 24px; border-radius: 8px; max-width: 440px; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+  .notice code { background: #f2f3f4; padding: 1px 4px; border-radius: 3px; }
+
+  .maplibregl-ctrl-attrib { font-size: 10px; }
+
+  @media (max-width: 720px) {
+    header { flex-wrap: wrap; }
+    .title h1 { font-size: 24px; } .title h1 span { height: 20px; }
+    .title p { display: none; }
+    .tabs { order: 3; width: 100%; justify-content: center; }
+    .today .big { font-size: 22px; }
+    .panel { top: auto; bottom: 100px; left: 16px; right: 16px; width: auto; max-height: 24vh; }
+    .panel .note { display: none; }
+    .detail { top: 120px; left: 16px; right: 16px; width: auto; max-height: 45vh; }
+    .hint { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<header>
+  <div class="title">
+    <h1><span></span><span id="nationTitle" style="all:unset">England</span></h1>
+    <p>Every Premier League player born here, by birthplace and birth year.</p>
+  </div>
+  <nav class="tabs" id="tabs">
+    <button data-mode="period" class="on">Period</button>
+    <button data-mode="hotspots">Hotspots</button>
+    <button data-mode="shift">Shift</button>
+  </nav>
+  <div class="today">
+    <div class="big" id="rangeLabel">–</div>
+    <div class="num" id="countLabel"></div>
+    <select id="nation" aria-label="Birth nation">
+      <option value="England">England</option>
+      <option value="UK">All UK</option>
+      <option value="Scotland">Scotland</option>
+      <option value="Wales">Wales</option>
+      <option value="Northern Ireland">Northern Ireland</option>
+    </select>
+  </div>
+</header>
+
+<aside class="panel" id="panel"></aside>
+<aside class="detail" id="detail"></aside>
+<div class="hint">Drag to pan · right-drag or Ctrl-drag to tilt · drag the timeline to pick years</div>
+
+<div class="timeline">
+  <div class="play"><button id="playBtn" aria-label="Play">▶</button></div>
+  <canvas id="hist"></canvas>
+</div>
+
+<div class="notice" id="notice"><div>
+  <h2 style="margin-top:0">No data yet</h2>
+  <p>The player data hasn't been generated yet. Run the <b>Fetch PL birthplace data</b> GitHub Action
+  (or <code>python3 scripts/fetch_pl_players.py</code> locally) to create <code>footballers-map/data/players.json</code>.</p>
+</div></div>
+
+<script>
+const PERIODS = [
+  { key: 'p50', label: 'Before 1960', from: 0,    to: 1959, color: [107, 29, 29] },
+  { key: 'p60', label: '1960s',       from: 1960, to: 1969, color: [192, 57, 43] },
+  { key: 'p70', label: '1970s',       from: 1970, to: 1979, color: [230, 126, 34] },
+  { key: 'p80', label: '1980s',       from: 1980, to: 1989, color: [222, 178, 30] },
+  { key: 'p90', label: '1990s',       from: 1990, to: 1999, color: [42, 157, 143] },
+  { key: 'p00', label: '2000 onwards',from: 2000, to: 9999, color: [86, 70, 196] },
+];
+const periodOf = y => PERIODS.find(p => y >= p.from && y <= p.to);
+const rgb = c => `rgb(${c.join(',')})`;
+const HOT = [[255,240,200],[253,190,110],[240,120,60],[200,50,40],[120,10,30]];
+const DIV_UP = [26,120,140], DIV_DOWN = [200,60,40];
+
+const state = {
+  mode: 'period', nation: 'England', from: 0, to: 0, minYear: 0, maxYear: 0,
+  hidden: new Set(), split: 1980, playing: null,
+};
+let ALL = [], players = [], places = new Map(), meta = {};
+
+// ---------- map ----------
+const map = new maplibregl.Map({
+  container: 'map',
+  style: 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json',
+  center: [-1.6, 53.0], zoom: 5.7, pitch: 45, bearing: -8, maxPitch: 70,
+  attributionControl: { compact: true },
+});
+map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
+const overlay = new deck.MapboxOverlay({ interleaved: false, layers: [] });
+map.addControl(overlay);
+map.on('zoomend', () => { layoutDots(); render(); });
+
+// ---------- data ----------
+fetch('data/players.json').then(r => { if (!r.ok) throw 0; return r.json(); }).then(d => {
+  meta = d;
+  ALL = d.players.map(p => ({ ...p, year: +p.dob.slice(0, 4) }));
+  const years = ALL.map(p => p.year);
+  state.minYear = Math.min(...years); state.maxYear = Math.max(...years);
+  state.from = state.minYear; state.to = state.maxYear;
+  applyNation();
+}).catch(() => { document.getElementById('notice').style.display = 'grid'; });
+
+function applyNation() {
+  players = ALL.filter(p => state.nation === 'UK' || p.nation === state.nation);
+  document.getElementById('nationTitle').textContent = state.nation === 'UK' ? 'United Kingdom' : state.nation;
+  // group by birthplace coordinate
+  places = new Map();
+  for (const p of players) {
+    const k = p.lat + ',' + p.lon;
+    if (!places.has(k)) places.set(k, { key: k, name: p.place, lat: p.lat, lon: p.lon, players: [] });
+    places.get(k).players.push(p);
+  }
+  for (const pl of places.values()) pl.players.sort((a, b) => a.dob.localeCompare(b.dob));
+  layoutDots(); render();
+}
+
+// Each player is a small column placed on a sunflower spiral around their birthplace,
+// spaced in screen pixels so towns read as clusters at every zoom level.
+let dotSpacing = 0;
+function layoutDots() {
+  if (!places.size) return;
+  const z = map.getZoom();
+  const mpp = 156543.03 * Math.cos(53 * Math.PI / 180) / Math.pow(2, z);
+  dotSpacing = Math.max(mpp * 3.6, 40);
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  for (const pl of places.values()) {
+    const cosLat = Math.cos(pl.lat * Math.PI / 180);
+    pl.players.forEach((p, i) => {
+      const r = dotSpacing * 0.62 * Math.sqrt(i), t = i * golden;
+      p.x = pl.lon + (r * Math.cos(t)) / (111320 * cosLat);
+      p.y = pl.lat + (r * Math.sin(t)) / 110540;
+    });
+  }
+}
+
+const inWindow = p => p.year >= state.from && p.year <= state.to;
+const visible = p => inWindow(p) && !state.hidden.has(periodOf(p.year).key);
+
+// ---------- grid aggregation for Hotspots and Shift ----------
+const CELL = 0.18; // degrees latitude (~20 km); longitude scaled for squareness
+function cellOf(p) {
+  const cl = CELL / Math.cos(53 * Math.PI / 180);
+  const i = Math.floor(p.lon / cl), j = Math.floor(p.lat / CELL);
+  return { key: i + ':' + j, lon: (i + .5) * cl, lat: (j + .5) * CELL };
+}
+function aggregate(list) {
+  const cells = new Map();
+  for (const p of list) {
+    const c = cellOf(p);
+    if (!cells.has(c.key)) cells.set(c.key, { ...c, n: 0, names: new Map(), players: [] });
+    const cell = cells.get(c.key);
+    cell.n++; cell.players.push(p);
+    cell.names.set(p.place, (cell.names.get(p.place) || 0) + 1);
+  }
+  for (const c of cells.values()) c.name = [...c.names].sort((a, b) => b[1] - a[1])[0][0];
+  return cells;
+}
+const lerpColor = (stops, t) => {
+  t = Math.max(0, Math.min(1, t)) * (stops.length - 1);
+  const i = Math.min(Math.floor(t), stops.length - 2), f = t - i;
+  return stops[i].map((v, k) => Math.round(v + (stops[i + 1][k] - v) * f));
+};
+
+// ---------- render ----------
+function render() {
+  if (!players.length) { overlay.setProps({ layers: [] }); return; }
+  const shown = players.filter(visible);
+  document.getElementById('rangeLabel').textContent =
+    state.mode === 'shift' ? `${state.minYear}–${state.maxYear}` : (state.from === state.to ? state.from : `${state.from}–${state.to}`);
+  document.getElementById('countLabel').textContent =
+    `${(state.mode === 'shift' ? players.length : shown.length).toLocaleString('en-GB')} players`;
+
+  let layers = [];
+  if (state.mode === 'period') {
+    layers = [new deck.ColumnLayer({
+      id: 'players', data: shown, diskResolution: 6, radius: dotSpacing * 0.42, extruded: true,
+      getPosition: p => [p.x, p.y], getFillColor: p => periodOf(p.year).color,
+      getElevation: 1, elevationScale: dotSpacing * 2.2, pickable: true, autoHighlight: true,
+      highlightColor: [0, 0, 0, 160],
+      onClick: ({ object }) => object && showPlace(places.get(object.lat + ',' + object.lon).players.filter(visible), object.place),
+      updateTriggers: { getPosition: dotSpacing },
+    })];
+    periodPanel(shown);
+  } else if (state.mode === 'hotspots') {
+    const cells = [...aggregate(shown).values()];
+    const max = Math.max(1, ...cells.map(c => c.n));
+    layers = [new deck.ColumnLayer({
+      id: 'hot', data: cells, diskResolution: 4, angle: 45, radius: CELL * 110540 * 0.5 * 0.92, extruded: true,
+      getPosition: c => [c.lon, c.lat], getElevation: c => c.n, elevationScale: 60000 / max,
+      getFillColor: c => lerpColor(HOT, Math.sqrt(c.n / max)), pickable: true, autoHighlight: true,
+      onClick: ({ object }) => object && showPlace(object.players, `Around ${object.name}`),
+    })];
+    hotspotPanel(cells);
+  } else {
+    const a = aggregate(players.filter(p => p.year < state.split));
+    const b = aggregate(players.filter(p => p.year >= state.split));
+    const na = [...a.values()].reduce((s, c) => s + c.n, 0) || 1;
+    const nb = [...b.values()].reduce((s, c) => s + c.n, 0) || 1;
+    const keys = new Set([...a.keys(), ...b.keys()]);
+    const cells = [];
+    for (const k of keys) {
+      const ca = a.get(k), cb = b.get(k), base = ca || cb;
+      const total = (ca?.n || 0) + (cb?.n || 0);
+      if (total < 3) continue;
+      const delta = ((cb?.n || 0) / nb - (ca?.n || 0) / na) * 100; // percentage points of all players
+      cells.push({ lon: base.lon, lat: base.lat, name: (cb || ca).name, delta, a: ca?.n || 0, b: cb?.n || 0,
+        players: [...(ca?.players || []), ...(cb?.players || [])] });
+    }
+    const max = Math.max(0.5, ...cells.map(c => Math.abs(c.delta)));
+    layers = [new deck.ColumnLayer({
+      id: 'shift', data: cells, diskResolution: 4, angle: 45, radius: CELL * 110540 * 0.5 * 0.92, extruded: true,
+      getPosition: c => [c.lon, c.lat], getElevation: c => Math.abs(c.delta), elevationScale: 60000 / max,
+      getFillColor: c => {
+        const t = Math.min(1, Math.abs(c.delta) / max) ** .7;
+        return lerpColor([[235, 235, 235], c.delta >= 0 ? DIV_UP : DIV_DOWN], t);
+      },
+      pickable: true, autoHighlight: true,
+      onClick: ({ object }) => object && showPlace(object.players, `Around ${object.name}`),
+    })];
+    shiftPanel(cells, na, nb);
+  }
+  overlay.setProps({ layers, getTooltip });
+  drawHist();
+}
+
+function getTooltip({ object, layer }) {
+  if (!object) return null;
+  const style = { background: '#111', color: '#fff', fontSize: '12px', padding: '6px 8px', borderRadius: '4px' };
+  if (layer.id === 'players') return { html: `<b>${esc(object.name)}</b><br>${esc(object.place)} · ${fmtDate(object.dob)}`, style };
+  if (layer.id === 'hot') return { html: `<b>Around ${esc(object.name)}</b><br>${object.n} players`, style };
+  return { html: `<b>Around ${esc(object.name)}</b><br>Born before ${state.split}: ${object.a}<br>Born ${state.split}+: ${object.b}<br>Share change: ${object.delta >= 0 ? '+' : ''}${object.delta.toFixed(2)} pts`, style };
+}
+
+// ---------- panels ----------
+const panel = document.getElementById('panel');
+function periodPanel(shown) {
+  const inWin = players.filter(inWindow);
+  panel.innerHTML = `<h2>Born in</h2>` + PERIODS.map(p => {
+    const n = inWin.filter(x => periodOf(x.year) === p).length;
+    return `<div class="row ${state.hidden.has(p.key) ? 'off' : ''}" data-key="${p.key}">
+      <span class="sw" style="background:${rgb(p.color)}"></span><span class="label">${p.label}</span>
+      <span class="num">${n.toLocaleString('en-GB')}</span></div>`;
+  }).join('') + `<p class="note">Click a period to hide or show it. Each column is one player, clustered around the town they were born in. Click a cluster to list its players.</p>` + sourceNote();
+  panel.querySelectorAll('.row').forEach(el => el.onclick = () => {
+    const k = el.dataset.key;
+    // first click isolates, later clicks toggle
+    if (!state.hidden.size) PERIODS.forEach(p => p.key !== k && state.hidden.add(p.key));
+    else if (state.hidden.has(k)) state.hidden.delete(k); else state.hidden.add(k);
+    if (state.hidden.size === PERIODS.length) state.hidden.clear();
+    render();
+  });
+}
+function hotspotPanel(cells) {
+  const top = cells.sort((a, b) => b.n - a.n).slice(0, 15);
+  panel.innerHTML = `<h2>Biggest hotspots, ${state.from}–${state.to}</h2>
+    <div class="ramp" style="background:linear-gradient(90deg,${HOT.map(rgb).join(',')})"></div>
+    <div class="ramp-labels num"><span>fewer</span><span>more players</span></div>` +
+    top.map((c, i) => `<div class="rank" data-i="${i}"><b>${i + 1}</b><span>${esc(c.name)}</span><span class="num">${c.n}</span></div>`).join('') +
+    `<p class="note">Players grouped into ~20 km squares, named after the most common birthplace inside. These are raw counts, so big cities lead. Drag the timeline to compare generations.</p>` + sourceNote();
+  panel.querySelectorAll('.rank').forEach(el => el.onclick = () => {
+    const c = top[+el.dataset.i];
+    map.flyTo({ center: [c.lon, c.lat], zoom: 9 });
+    showPlace(c.players, `Around ${c.name}`);
+  });
+}
+function shiftPanel(cells, na, nb) {
+  const up = [...cells].sort((a, b) => b.delta - a.delta).slice(0, 6);
+  const down = [...cells].sort((a, b) => a.delta - b.delta).slice(0, 6);
+  const list = (arr, sign) => arr.map(c => `<div class="rank" data-k="${c.lon},${c.lat}"><span>${esc(c.name)}</span>
+    <span class="num">${c.a} → ${c.b} &nbsp;${sign}${Math.abs(c.delta).toFixed(1)} pts</span></div>`).join('');
+  panel.innerHTML = `<h2>Where the talent comes from has shifted</h2>
+    <label class="num">Compare players born before / from <b id="splitVal">${state.split}</b></label>
+    <input type="range" id="split" min="${state.minYear + 5}" max="${state.maxYear - 5}" value="${state.split}">
+    <div class="num">${na.toLocaleString('en-GB')} before · ${nb.toLocaleString('en-GB')} from</div>
+    <div class="ramp" style="background:linear-gradient(90deg,${rgb(DIV_DOWN)},#ebebeb,${rgb(DIV_UP)})"></div>
+    <div class="ramp-labels num"><span>smaller share</span><span>bigger share</span></div>
+    <h2 style="margin-top:12px">Growing</h2>${list(up.filter(c => c.delta > 0), '+')}
+    <h2 style="margin-top:12px">Shrinking</h2>${list(down.filter(c => c.delta < 0), '−')}
+    <p class="note">Each square's share of all players in each generation, and how many percentage points it gained or lost. Shares make the two generations comparable even though they differ in size. Squares with fewer than 3 players are hidden.</p>` + sourceNote();
+  const s = document.getElementById('split');
+  s.oninput = () => { document.getElementById('splitVal').textContent = s.value; };
+  s.onchange = () => { state.split = +s.value; render(); };
+  panel.querySelectorAll('.rank').forEach(el => el.onclick = () => {
+    const [lon, lat] = el.dataset.k.split(',').map(Number);
+    map.flyTo({ center: [lon, lat], zoom: 8.5 });
+  });
+}
+function sourceNote() {
+  return `<p class="note">Source: Wikipedia “Premier League players” category + Wikidata, ${esc(meta.generated || '')}. Birthplace is as recorded, often the town of the maternity hospital.</p>`;
+}
+
+// ---------- place detail ----------
+const detail = document.getElementById('detail');
+function showPlace(list, title) {
+  detail.innerHTML = `<button class="close" aria-label="Close">×</button><h2 style="margin:0 0 4px">${esc(title)}</h2>
+    <div class="num" style="margin-bottom:6px">${list.length} players</div>` +
+    list.slice(0, 300).map(p => `<div class="player"><span class="sw" style="display:inline-block;margin-right:6px;background:${rgb(periodOf(p.year).color)}"></span>
+      <a href="https://www.wikidata.org/wiki/${p.id}" target="_blank" rel="noopener">${esc(p.name)}</a>
+      <div class="num">${fmtDate(p.dob)} · ${esc(p.place)}${p.pos ? ' · ' + esc(p.pos) : ''}</div>
+      ${p.clubs.length ? `<div class="clubs">${p.clubs.map(c => esc(c[0]) + (c[1] ? ` (${c[1]}${c[2] && c[2] !== c[1] ? '–' + c[2] : ''})` : '')).join(', ')}</div>` : ''}</div>`).join('') +
+    (list.length > 300 ? `<p class="note">Showing the first 300.</p>` : '');
+  detail.classList.add('show');
+  detail.querySelector('.close').onclick = () => detail.classList.remove('show');
+}
+
+// ---------- timeline histogram + brush ----------
+const cv = document.getElementById('hist'), ctx = cv.getContext('2d');
+const PAD = 24;
+function x2year(x) {
+  const w = cv.clientWidth - PAD * 2;
+  return Math.round(state.minYear + Math.max(0, Math.min(1, (x - PAD) / w)) * (state.maxYear - state.minYear));
+}
+function year2x(y) { return PAD + (y - state.minYear) / Math.max(1, state.maxYear - state.minYear) * (cv.clientWidth - PAD * 2); }
+function drawHist() {
+  const dpr = devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight;
+  if (cv.width !== W * dpr) { cv.width = W * dpr; cv.height = H * dpr; }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+  if (!players.length) return;
+  const counts = {};
+  for (const p of players) counts[p.year] = (counts[p.year] || 0) + 1;
+  const max = Math.max(...Object.values(counts));
+  const bw = Math.max(1, (W - PAD * 2) / (state.maxYear - state.minYear + 1) - 1);
+  const top = 10, base = H - 22;
+  for (let y = state.minYear; y <= state.maxYear; y++) {
+    const n = counts[y] || 0, h = n / max * (base - top);
+    const on = state.mode === 'shift' || (y >= state.from && y <= state.to);
+    const c = periodOf(y).color;
+    ctx.fillStyle = `rgba(${c.join(',')},${on ? 1 : .18})`;
+    ctx.fillRect(year2x(y) - bw / 2, base - h, bw, h);
+  }
+  ctx.fillStyle = '#6b6f73'; ctx.font = '10px ui-monospace, Menlo, monospace'; ctx.textAlign = 'center';
+  const step = W < 600 ? 10 : 5;
+  for (let y = Math.ceil(state.minYear / step) * step; y <= state.maxYear; y += step) ctx.fillText(y, year2x(y), H - 7);
+  if (state.mode === 'shift') {
+    const x = year2x(state.split);
+    ctx.fillStyle = '#111'; ctx.fillRect(x - 1, top - 4, 2, base - top + 4);
+  } else {
+    for (const y of [state.from, state.to]) {
+      const x = year2x(y);
+      ctx.fillStyle = '#111'; ctx.fillRect(x - 1, top - 4, 2, base - top + 4);
+      ctx.beginPath(); ctx.arc(x, top - 4, 4, 0, 7); ctx.fill();
+    }
+  }
+}
+let drag = null;
+cv.addEventListener('pointerdown', e => {
+  if (!players.length) return;
+  const y = x2year(e.offsetX);
+  stop();
+  if (state.mode === 'shift') { drag = 'split'; state.split = y; }
+  else drag = Math.abs(y - state.from) <= Math.abs(y - state.to) ? 'from' : 'to';
+  cv.setPointerCapture(e.pointerId); move(e);
+});
+cv.addEventListener('pointermove', e => drag && move(e));
+cv.addEventListener('pointerup', () => { drag = null; render(); });
+function move(e) {
+  const y = x2year(e.offsetX);
+  if (drag === 'split') state.split = Math.max(state.minYear + 1, Math.min(state.maxYear, y));
+  else if (drag === 'from') state.from = Math.min(y, state.to);
+  else state.to = Math.max(y, state.from);
+  render();
+}
+addEventListener('resize', drawHist);
+
+// Play: sweep a 10-year window across the whole range, then show everything.
+const playBtn = document.getElementById('playBtn');
+function stop() { clearInterval(state.playing); state.playing = null; playBtn.textContent = '▶'; }
+playBtn.onclick = () => {
+  if (state.playing) return stop();
+  if (state.mode === 'shift') setMode('period');
+  playBtn.textContent = '❚❚';
+  state.from = state.minYear; state.to = state.minYear + 9; render();
+  state.playing = setInterval(() => {
+    if (state.to >= state.maxYear) { stop(); state.from = state.minYear; state.to = state.maxYear; render(); return; }
+    state.from++; state.to++; render();
+  }, 260);
+};
+
+// ---------- controls ----------
+function setMode(m) {
+  state.mode = m;
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.mode === m));
+  detail.classList.remove('show');
+  render();
+}
+document.querySelectorAll('#tabs button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.getElementById('nation').onchange = e => {
+  state.nation = e.target.value; detail.classList.remove('show'); applyNation();
+  if (state.nation === 'Scotland') map.flyTo({ center: [-4.2, 56.3], zoom: 6 });
+  else if (state.nation === 'Wales') map.flyTo({ center: [-3.6, 52.3], zoom: 6.6 });
+  else if (state.nation === 'Northern Ireland') map.flyTo({ center: [-6.7, 54.6], zoom: 7 });
+  else map.flyTo({ center: state.nation === 'UK' ? [-3, 54.5] : [-1.6, 53.0], zoom: state.nation === 'UK' ? 5.2 : 5.7 });
+};
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]); }
+function fmtDate(d) {
+  const [y, m, day] = d.split('-');
+  return new Date(Date.UTC(+y, +m - 1, +day)).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+</script>
+</body>
+</html>
