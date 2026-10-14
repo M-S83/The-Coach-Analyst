@@ -1,4 +1,5 @@
-# Pulls Premier League player birthplaces from Wikipedia + Wikidata and commits
+# Pulls Premier League player birthplaces from Wikipedia + Wikidata, adds PL appearances
+# from the premierleague.com stats feed, and commits
 # footballers-map/data/players.json back to the branch it ran on.
 name: Fetch PL birthplace data
 
@@ -8,6 +9,7 @@ on:
     branches-ignore: ["main"]
     paths:
       - "scripts/fetch_pl_players.py"
+      - "scripts/fetch_pl_appearances.py"
       - ".github/workflows/fetch-pl-data.yml"
 
 permissions:
@@ -24,6 +26,8 @@ jobs:
           python-version: "3.12"
       - name: Fetch data
         run: python3 scripts/fetch_pl_players.py
+      - name: Add PL appearances
+        run: python3 scripts/fetch_pl_appearances.py
       - name: Commit data
         run: |
           git config user.name "github-actions[bot]"
