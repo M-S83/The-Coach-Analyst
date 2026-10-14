@@ -9,10 +9,17 @@
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="https://unpkg.com/deck.gl@9.0.41/dist.min.js"></script>
 <style>
+  /* Layout: full-bleed 3D map, floating panels, birth-year timeline docked at the bottom */
   :root {
-    --bg: #eceeef; --ink: #111; --muted: #6b6f73; --panel: rgba(255,255,255,.94);
-    --line: #d9dcdf; --accent: #111;
+    --bg: #dfe4e8; --land: #f4f5f3; --coast: #b9c2c9; --card: #fff; --ink: #121417; --muted: #626a72;
+    --panel: rgba(255,255,255,.94); --line: #d9dde0; --accent: #121417; --on-accent: #fff; --scrim: rgba(223,228,232,.92);
   }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg: #101418; --land: #1d2328; --coast: #36404a; --card: #1b2026; --ink: #eef1f3; --muted: #9aa3ab;
+    --panel: rgba(27,32,38,.94); --line: #2d353d; --accent: #eef1f3; --on-accent: #121417; --scrim: rgba(16,20,24,.92); color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --bg: #101418; --land: #1d2328; --coast: #36404a; --card: #1b2026; --ink: #eef1f3; --muted: #9aa3ab;
+    --panel: rgba(27,32,38,.94); --line: #2d353d; --accent: #eef1f3; --on-accent: #121417; --scrim: rgba(16,20,24,.92); color-scheme: dark }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink);
     font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden; }
@@ -25,19 +32,19 @@
   .title h1 { margin: 0; font-size: 34px; letter-spacing: -.02em; line-height: 1; font-weight: 800; }
   .title h1 span { display: inline-block; width: 6px; height: 28px; background: #c0392b; margin-right: 8px; vertical-align: -2px; }
   .title p { margin: 6px 0 0; color: var(--muted); max-width: 260px; }
-  .tabs { display: flex; gap: 2px; background: #fff; border-radius: 999px; padding: 3px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+  .tabs { display: flex; gap: 2px; background: var(--card); border-radius: 999px; padding: 3px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
   .tabs button { border: 0; background: transparent; padding: 6px 14px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; color: var(--ink); }
-  .tabs button.on { background: var(--accent); color: #fff; }
+  .tabs button.on { background: var(--accent); color: var(--on-accent); }
   .today { text-align: right; }
   .today .big { font-size: 34px; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
-  .today select { margin-top: 8px; font: inherit; border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; background: #fff; }
+  .today select { margin-top: 8px; font: inherit; border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; background: var(--card); color: var(--ink); }
 
   .panel { position: absolute; left: 16px; top: 110px; width: 280px; max-height: calc(100% - 230px); overflow: auto;
     background: var(--panel); border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,.12); padding: 12px 14px; z-index: 2; }
   .panel h2 { margin: 0 0 8px; font-size: 13px; }
   .panel .note { color: var(--muted); font-size: 11px; margin: 8px 0 0; }
   .row { display: flex; align-items: center; gap: 8px; padding: 3px 4px; border-radius: 4px; cursor: pointer; }
-  .row:hover { background: rgba(0,0,0,.05); }
+  .row:hover { background: var(--line); }
   .row.off { opacity: .35; }
   .sw { width: 10px; height: 10px; border-radius: 2px; flex: none; }
   .row .label { flex: 1; }
@@ -52,23 +59,23 @@
   .detail { position: absolute; right: 16px; top: 110px; width: 300px; max-height: calc(100% - 230px); overflow: auto;
     background: var(--panel); border-radius: 6px; box-shadow: 0 1px 6px rgba(0,0,0,.12); padding: 12px 14px; z-index: 3; display: none; }
   .detail.show { display: block; }
-  .detail .close { float: right; border: 0; background: none; font-size: 18px; cursor: pointer; line-height: 1; }
+  .detail .close { float: right; border: 0; background: none; font-size: 18px; cursor: pointer; line-height: 1; color: var(--ink); }
   .player { padding: 6px 0; border-bottom: 1px solid var(--line); }
   .player:last-child { border-bottom: 0; }
   .player a { color: var(--ink); font-weight: 600; text-decoration: none; }
   .player a:hover { text-decoration: underline; }
   .player .clubs { color: var(--muted); font-size: 11px; }
 
-  .timeline { position: absolute; left: 0; right: 0; bottom: 0; height: 92px; background: #fff; border-top: 1px solid var(--line);
+  .timeline { position: absolute; left: 0; right: 0; bottom: 0; height: 92px; background: var(--card); border-top: 1px solid var(--line);
     display: flex; align-items: stretch; z-index: 2; }
   .play { width: 56px; display: grid; place-items: center; flex: none; }
-  .play button { width: 30px; height: 30px; border-radius: 50%; border: 0; background: var(--accent); color: #fff; cursor: pointer; font-size: 12px; }
+  .play button { width: 30px; height: 30px; border-radius: 50%; border: 0; background: var(--accent); color: var(--on-accent); cursor: pointer; font-size: 12px; }
   #hist { flex: 1; min-width: 0; width: 100%; height: 100%; touch-action: none; cursor: ew-resize; display: block; }
   .hint { position: absolute; right: 64px; bottom: 100px; color: var(--muted); font-size: 11px; z-index: 1; }
 
-  .notice { position: absolute; inset: 0; display: none; place-items: center; z-index: 10; background: rgba(236,238,239,.92); }
-  .notice div { background: #fff; padding: 20px 24px; border-radius: 8px; max-width: 440px; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
-  .notice code { background: #f2f3f4; padding: 1px 4px; border-radius: 3px; }
+  .notice { position: absolute; inset: 0; display: none; place-items: center; z-index: 10; background: var(--scrim); }
+  .notice div { background: var(--card); padding: 20px 24px; border-radius: 8px; max-width: 440px; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+  .notice code { background: var(--line); padding: 1px 4px; border-radius: 3px; }
 
   .maplibregl-ctrl-attrib { font-size: 10px; }
 
@@ -147,10 +154,29 @@ const state = {
 let ALL = [], players = [], places = new Map(), meta = {};
 
 // ---------- map ----------
+// Self-contained basemap: sea background plus UK and Ireland coastlines, coloured from the theme tokens.
+const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+function baseStyle() {
+  return { version: 8, sources: { land: { type: 'geojson', data: new URL('data/uk-outline.json', location.href).href } },
+    layers: [
+      { id: 'sea', type: 'background', paint: { 'background-color': css('--bg') } },
+      { id: 'land', type: 'fill', source: 'land', paint: { 'fill-color': css('--land') } },
+      { id: 'coast', type: 'line', source: 'land', paint: { 'line-color': css('--coast'), 'line-width': 0.8 } },
+    ] };
+}
+function retheme() {
+  if (!map.isStyleLoaded()) return;
+  map.setPaintProperty('sea', 'background-color', css('--bg'));
+  map.setPaintProperty('land', 'fill-color', css('--land'));
+  map.setPaintProperty('coast', 'line-color', css('--coast'));
+  drawHist();
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', retheme);
+new MutationObserver(retheme).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 const map = new maplibregl.Map({
   container: 'map',
-  style: 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json',
-  center: [-1.6, 53.0], zoom: 5.7, pitch: 45, bearing: -8, maxPitch: 70,
+  style: baseStyle(),
+  center: [-1.6, 52.8], zoom: innerWidth < 720 ? 5.0 : 5.7, pitch: 45, bearing: -8, maxPitch: 70,
   attributionControl: { compact: true },
 });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'bottom-right');
@@ -293,7 +319,7 @@ function render() {
 
 function getTooltip({ object, layer }) {
   if (!object) return null;
-  const style = { background: '#111', color: '#fff', fontSize: '12px', padding: '6px 8px', borderRadius: '4px' };
+  const style = { background: css('--accent'), color: css('--on-accent'), fontSize: '12px', padding: '6px 8px', borderRadius: '4px' };
   if (layer.id === 'players') return { html: `<b>${esc(object.name)}</b><br>${esc(object.place)} · ${fmtDate(object.dob)}`, style };
   if (layer.id === 'hot') return { html: `<b>Around ${esc(object.name)}</b><br>${object.n} players`, style };
   return { html: `<b>Around ${esc(object.name)}</b><br>Born before ${state.split}: ${object.a}<br>Born ${state.split}+: ${object.b}<br>Share change: ${object.delta >= 0 ? '+' : ''}${object.delta.toFixed(2)} pts`, style };
@@ -393,19 +419,20 @@ function drawHist() {
     const n = counts[y] || 0, h = n / max * (base - top);
     const on = state.mode === 'shift' || (y >= state.from && y <= state.to);
     const c = periodOf(y).color;
-    ctx.fillStyle = `rgba(${c.join(',')},${on ? 1 : .18})`;
+    ctx.globalAlpha = on ? 1 : .2; ctx.fillStyle = rgb(c);
     ctx.fillRect(year2x(y) - bw / 2, base - h, bw, h);
   }
-  ctx.fillStyle = '#6b6f73'; ctx.font = '10px ui-monospace, Menlo, monospace'; ctx.textAlign = 'center';
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = css('--muted'); ctx.font = '10px ui-monospace, Menlo, monospace'; ctx.textAlign = 'center';
   const step = W < 600 ? 10 : 5;
   for (let y = Math.ceil(state.minYear / step) * step; y <= state.maxYear; y += step) ctx.fillText(y, year2x(y), H - 7);
   if (state.mode === 'shift') {
     const x = year2x(state.split);
-    ctx.fillStyle = '#111'; ctx.fillRect(x - 1, top - 4, 2, base - top + 4);
+    ctx.fillStyle = css('--ink'); ctx.fillRect(x - 1, top - 4, 2, base - top + 4);
   } else {
     for (const y of [state.from, state.to]) {
       const x = year2x(y);
-      ctx.fillStyle = '#111'; ctx.fillRect(x - 1, top - 4, 2, base - top + 4);
+      ctx.fillStyle = css('--ink'); ctx.fillRect(x - 1, top - 4, 2, base - top + 4);
       ctx.beginPath(); ctx.arc(x, top - 4, 4, 0, 7); ctx.fill();
     }
   }
