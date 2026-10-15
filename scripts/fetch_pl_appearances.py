@@ -116,31 +116,110 @@ def main():
         else:
             unmatched.append(f)
 
-    # Fill gaps: UK-born PL players Wikidata lacked, placed on a birthplace already on the map.
-    coords = {}
-    for p in players:
-        coords.setdefault(p["place"].lower(), (p["lat"], p["lon"]))
-    added, unplaced = 0, {}
+    # Pass 2: feed records often lack a birth date (mostly early-90s players), so match the
+    # remaining UK-born Wikidata players by full name, allowing a missing or slightly different date.
+    left = [p for p in players if p.get("apps") is None]
+    by_surname = {}
     for f in unmatched:
-        nation = NATIONS.get(f.get("birth", {}).get("country", {}).get("isoCode", ""))
-        if not nation:
+        toks = norm(f.get("name", {}).get("display", ""))
+        if toks:
+            by_surname.setdefault(toks[-1], []).append(f)
+    rescued = set()
+    for p in left:
+        toks = norm(p["name"])
+        if not toks:
             continue
+        cands = []
+        for f in by_surname.get(toks[-1], []):
+            ft = norm(f["name"]["display"])
+            if ft[0][0] != toks[0][0]:  # first initial must agree
+                continue
+            fd = birth_date(f)
+            if fd and not close_dates(fd, p["dob"]):
+                continue
+            cands.append(f)
+        if len(cands) > 1:  # prefer an exact first name
+            cands = [f for f in cands if norm(f["name"]["display"])[0] == toks[0]] or cands
+        if len(cands) == 1 and int(cands[0]["id"]) not in rescued:
+            p["apps"] = apps[int(cands[0]["id"])]
+            rescued.add(int(cands[0]["id"]))
+    unmatched = [f for f in unmatched if int(f["id"]) not in rescued]
+    print(f"  pass 2 matched {len(rescued)} more by name", file=sys.stderr)
+
+    # Pass 3: UK-born PL players Wikidata lacked. Place them by looking up their birthplace name.
+    coords = {p["place"].lower(): (p["lat"], p["lon"]) for p in players}
+    uk_left = [f for f in unmatched if NATIONS.get(f.get("birth", {}).get("country", {}).get("isoCode", ""))]
+    names = {(f["birth"].get("place") or "").strip() for f in uk_left} - {""}
+    coords.update(geocode([n for n in names if n.lower() not in coords]))
+    added, gaps_unplaced = 0, []
+    for f in uk_left:
+        nation = NATIONS[f["birth"]["country"]["isoCode"]]
         place = (f["birth"].get("place") or "").strip()
-        c = coords.get(place.lower())
+        c = coords.get(place.lower()) or coords.get(place.split(",")[0].strip().lower())
         dob = birth_date(f)
         if not (c and dob):
-            unplaced[nation] = unplaced.get(nation, 0) + 1
+            gaps_unplaced.append({"name": f["name"]["display"], "dob": dob, "place": place, "nation": nation,
+                                  "apps": apps[int(f["id"])], "why": "no birth date in feed" if not dob else "birthplace not found"})
             continue
-        players.append({"id": "", "name": f["name"]["display"], "dob": dob, "place": place,
+        players.append({"id": "", "name": f["name"]["display"], "dob": dob, "place": place.split(",")[0].strip(),
                         "lat": c[0], "lon": c[1], "pos": f.get("info", {}).get("positionInfo", ""),
                         "clubs": [], "nation": nation, "apps": apps[int(f["id"])], "src": "pl"})
         added += 1
 
     players.sort(key=lambda p: p["dob"])
-    data["plCheck"] = {"registered": len(feed), "played": len(played), "matched": matched,
-                       "addedFromFeed": added, "ukBornNotPlaced": unplaced}
+    gaps_noapps = [{"name": p["name"], "dob": p["dob"], "place": p["place"], "nation": p["nation"], "id": p["id"]}
+                   for p in players if p.get("apps") is None]
+    data["plCheck"] = {"registered": len(feed), "played": len(played), "matchedByDate": matched,
+                       "matchedByName": len(rescued), "addedFromFeed": added,
+                       "noAppearanceTotal": len(gaps_noapps), "notPlaced": len(gaps_unplaced)}
     json.dump(data, open(PATH, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
-    print(f"Matched {matched}, added {added} from the feed, could not place {unplaced}", file=sys.stderr)
+    with open(os.path.join(os.path.dirname(PATH), "gaps.json"), "w", encoding="utf-8") as fh:
+        json.dump({"noAppearanceTotal": gaps_noapps, "notPlaced": gaps_unplaced}, fh, ensure_ascii=False, indent=1)
+    print(f"  {data['plCheck']}", file=sys.stderr)
+
+
+def close_dates(a, b):
+    """Same date, day and month swapped, or within a year (typo-level differences)."""
+    if a == b or (a[:4] == b[:4] and a[5:7] == b[8:10] and a[8:10] == b[5:7]):
+        return True
+    return abs(int(a[:4]) - int(b[:4])) <= 1 and a[5:] == b[5:]
+
+
+def geocode(names):
+    """Birthplace name -> (lat, lon) via Wikidata: the best-known UK place with that exact English label."""
+    tried = {}
+    for n in names:
+        for v in (n, n.split(",")[0].strip(), n.removesuffix(", England").strip()):
+            tried.setdefault(v, n)
+    found = {}
+    keys = list(tried)
+    for i in range(0, len(keys), 80):
+        values = " ".join('"%s"@en' % k.replace('"', '') for k in keys[i:i + 80])
+        query = f"""SELECT ?name ?c ?links WHERE {{
+  VALUES ?name {{ {values} }}
+  ?place rdfs:label ?name ; wdt:P17 wd:Q145 ; wdt:P625 ?c ; wikibase:sitelinks ?links .
+}}"""
+        body = urllib.parse.urlencode({"query": query, "format": "json"}).encode()
+        req = urllib.request.Request("https://query.wikidata.org/sparql", data=body, headers={
+            "User-Agent": "TheCoachAnalyst-PLBirthplaces/1.0 (https://github.com/m-s83/the-coach-analyst)",
+            "Accept": "application/sparql-results+json"})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                rows = json.load(r)["results"]["bindings"]
+        except Exception as e:
+            print(f"  geocode batch failed: {e}", file=sys.stderr)
+            continue
+        best = {}
+        for r in rows:
+            name, links = r["name"]["value"], int(r["links"]["value"])
+            if links > best.get(name, (-1,))[0]:
+                lon, lat = r["c"]["value"].removeprefix("Point(").rstrip(")").split()
+                best[name] = (links, round(float(lat), 4), round(float(lon), 4))
+        for name, (_, lat, lon) in best.items():
+            found.setdefault(tried[name].lower(), (lat, lon))
+        time.sleep(1)
+    print(f"  geocoded {len(found)} of {len(names)} new birthplace names", file=sys.stderr)
+    return found
 
 
 if __name__ == "__main__":
