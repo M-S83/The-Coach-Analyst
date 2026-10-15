@@ -12,6 +12,7 @@ Run after fetch_pl_players.py. Standard library only.
 """
 import json
 import os
+import re
 import sys
 import time
 import unicodedata
@@ -144,16 +145,42 @@ def main():
             p["apps"] = apps[int(cands[0]["id"])]
             rescued.add(int(cands[0]["id"]))
     unmatched = [f for f in unmatched if int(f["id"]) not in rescued]
-    print(f"  pass 2 matched {len(rescued)} more by name", file=sys.stderr)
+    # Some old feed records carry a wrong birth date entirely, so also accept a name that is
+    # unique on both sides: same surname, and one first name a prefix of the other (Mick/Micky).
+    def key(name):
+        t = norm(name)
+        return (t[-1], t[0]) if len(t) > 1 else None
+    left = [p for p in players if p.get("apps") is None]
+    for p in left:
+        k = key(p["name"])
+        if not k:
+            continue
+        fs = [f for f in unmatched if (fk := key(f["name"]["display"])) and fk[0] == k[0]
+              and (fk[1].startswith(k[1]) or k[1].startswith(fk[1]))]
+        ps = [q for q in left if (qk := key(q["name"])) and qk[0] == k[0]
+              and (qk[1].startswith(k[1]) or k[1].startswith(qk[1]))]
+        if len(fs) == 1 and len(ps) == 1 and int(fs[0]["id"]) not in rescued:
+            p["apps"] = apps[int(fs[0]["id"])]
+            rescued.add(int(fs[0]["id"]))
+    unmatched = [f for f in unmatched if int(f["id"]) not in rescued]
+    print(f"  passes 2 matched {len(rescued)} more by name", file=sys.stderr)
 
     # Pass 3: UK-born PL players Wikidata lacked. Place them by looking up their birthplace name.
     coords = {p["place"].lower(): (p["lat"], p["lon"]) for p in players}
     uk_left = [f for f in unmatched if NATIONS.get(f.get("birth", {}).get("country", {}).get("isoCode", ""))]
+    # The feed's "country" is nationality for many older players and its place is often blank,
+    # so read the birthplace from the player's Wikipedia infobox instead whenever it is blank.
+    for f in uk_left:
+        if not (f["birth"].get("place") or "").strip():
+            place, nation = wikipedia_birthplace(f["name"]["display"], birth_date(f))
+            f["birth"]["place"] = place
+            f["wikiNation"] = nation  # None means not born in the UK, or unknown
+    uk_left = [f for f in uk_left if f.get("wikiNation", "?")]
     names = {(f["birth"].get("place") or "").strip() for f in uk_left} - {""}
     coords.update(geocode([n for n in names if n.lower() not in coords]))
     added, gaps_unplaced = 0, []
     for f in uk_left:
-        nation = NATIONS[f["birth"]["country"]["isoCode"]]
+        nation = f.get("wikiNation") or NATIONS[f["birth"]["country"]["isoCode"]]
         place = (f["birth"].get("place") or "").strip()
         c = coords.get(place.lower()) or coords.get(place.split(",")[0].strip().lower())
         dob = birth_date(f)
@@ -178,10 +205,39 @@ def main():
     print(f"  {data['plCheck']}", file=sys.stderr)
 
 
+def wikipedia_birthplace(name, dob):
+    """(place, nation) from the infobox of the player's English Wikipedia article, or ("", None)."""
+    api = "https://en.wikipedia.org/w/api.php"
+    ua = {"User-Agent": "TheCoachAnalyst-PLBirthplaces/1.0 (https://github.com/m-s83/the-coach-analyst)"}
+    def call(**params):
+        url = api + "?" + urllib.parse.urlencode({"format": "json", **params})
+        with urllib.request.urlopen(urllib.request.Request(url, headers=ua), timeout=60) as r:
+            return json.load(r)
+    try:
+        hits = call(action="query", list="search", srsearch=f'"{name}" footballer', srlimit=5)["query"]["search"]
+        for h in hits:
+            text = call(action="parse", page=h["title"], prop="wikitext", formatversion=2)["parse"]["wikitext"]
+            if "birth_place" not in text or (dob and dob[:4] not in text[:3000]):
+                continue  # not this player's article
+            m = re.search(r"\|\s*birth_place\s*=\s*(.+)", text)
+            raw = m.group(1) if m else ""
+            raw = re.sub(r"<ref.*?(/>|</ref>)", "", raw)
+            raw = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]*)\]\]", r"\1", raw)
+            raw = re.sub(r"\{\{.*?\}\}|<[^>]+>", "", raw).strip(" ,|")
+            nation = next((n for n in ("Northern Ireland", "England", "Scotland", "Wales") if n in raw), None)
+            time.sleep(0.3)
+            return raw.split(",")[0].strip(), nation
+    except Exception as e:
+        print(f"  wikipedia lookup failed for {name}: {e}", file=sys.stderr)
+    return "", None
+
+
 def close_dates(a, b):
     """Same date, day and month swapped, or within a year (typo-level differences)."""
     if a == b or (a[:4] == b[:4] and a[5:7] == b[8:10] and a[8:10] == b[5:7]):
         return True
+    if a[:4] == b[:4] and a[8:] == b[8:] and abs(int(a[5:7]) - int(b[5:7])) == 1:
+        return True  # the feed has some dates a month out
     return abs(int(a[:4]) - int(b[:4])) <= 1 and a[5:] == b[5:]
 
 
