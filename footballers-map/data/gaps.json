@@ -1,1166 +1,1332 @@
 {
  "noAppearanceTotal": [
   {
+   "name": "Ray Wilkins",
+   "dob": "1956-09-14",
+   "place": "Hillingdon",
+   "nation": "England",
+   "id": "Q352820",
+   "why": "in the feed with no appearances recorded"
+  },
+  {
    "name": "Kevin Moore",
    "dob": "1958-04-29",
    "place": "Grimsby",
    "nation": "England",
-   "id": "Q6397027"
+   "id": "Q6397027",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Steve White",
    "dob": "1959-01-02",
    "place": "Chipping Sodbury",
    "nation": "England",
-   "id": "Q7614287"
+   "id": "Q7614287",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Roger Palmer",
    "dob": "1959-01-30",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q7358761"
+   "id": "Q7358761",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Garry Thompson",
    "dob": "1959-10-07",
    "place": "Birmingham",
    "nation": "England",
-   "id": "Q5524235"
+   "id": "Q5524235",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Danny Wilson",
    "dob": "1960-01-01",
    "place": "Wigan",
    "nation": "England",
-   "id": "Q180319"
+   "id": "Q180319",
+   "why": "feed birth date differs (1991-12-27)"
   },
   {
    "name": "Graeme Sharp",
    "dob": "1960-10-16",
    "place": "Glasgow",
    "nation": "Scotland",
-   "id": "Q46981"
+   "id": "Q46981",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Clive Allen",
    "dob": "1961-05-20",
    "place": "Stepney",
    "nation": "England",
-   "id": "Q706818"
+   "id": "Q706818",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Kerry Dixon",
    "dob": "1961-07-24",
    "place": "Luton",
    "nation": "England",
-   "id": "Q703734"
+   "id": "Q703734",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Micky Adams",
    "dob": "1961-11-08",
    "place": "Sheffield",
    "nation": "England",
-   "id": "Q604475"
+   "id": "Q604475",
+   "why": "not in the Premier League feed"
+  },
+  {
+   "name": "Clive Wilson",
+   "dob": "1961-11-13",
+   "place": "Manchester",
+   "nation": "England",
+   "id": "Q5134706",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "David Barnes",
    "dob": "1961-11-16",
    "place": "Paddington",
    "nation": "England",
-   "id": "Q5231135"
+   "id": "Q5231135",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Geraint Williams",
    "dob": "1962-01-05",
    "place": "Cwmparc",
    "nation": "Wales",
-   "id": "Q4575731"
+   "id": "Q4575731",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Allen",
    "dob": "1962-08-28",
    "place": "Aveley",
    "nation": "England",
-   "id": "Q7149040"
+   "id": "Q7149040",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mike Phelan",
    "dob": "1962-09-24",
    "place": "Nelson",
    "nation": "England",
-   "id": "Q325580"
+   "id": "Q325580",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mark Wright",
    "dob": "1963-08-01",
    "place": "Berinsfield",
    "nation": "England",
-   "id": "Q526694"
+   "id": "Q526694",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tommy Wright",
    "dob": "1963-09-28",
    "place": "Ballyclare",
    "nation": "Northern Ireland",
-   "id": "Q3531369"
+   "id": "Q3531369",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Williams",
    "dob": "1963-11-08",
    "place": "Belfast",
    "nation": "Northern Ireland",
-   "id": "Q7154387"
+   "id": "Q7154387",
+   "why": "several feed players share this name"
   },
   {
    "name": "Danny Wallace",
    "dob": "1964-01-21",
    "place": "Greenwich",
    "nation": "England",
-   "id": "Q1179926"
+   "id": "Q1179926",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Andy Gray",
    "dob": "1964-02-22",
    "place": "Lambeth",
    "nation": "England",
-   "id": "Q525927"
+   "id": "Q525927",
+   "why": "feed birth date differs (1977-11-15)"
   },
   {
    "name": "Devon White",
    "dob": "1964-03-02",
    "place": "Nottingham",
    "nation": "England",
-   "id": "Q5267776"
+   "id": "Q5267776",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Colin Foster",
    "dob": "1964-07-16",
    "place": "Chislehurst",
    "nation": "England",
-   "id": "Q5145100"
+   "id": "Q5145100",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Geoff Thomas",
    "dob": "1964-08-05",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q3028760"
+   "id": "Q3028760",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Steve Thompson",
    "dob": "1964-11-02",
    "place": "Oldham",
    "nation": "England",
-   "id": "Q7614122"
+   "id": "Q7614122",
+   "why": "feed birth date differs (1978-10-14)"
   },
   {
    "name": "Kevin Ball",
    "dob": "1964-11-12",
    "place": "Hastings",
    "nation": "England",
-   "id": "Q10379434"
+   "id": "Q10379434",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Linighan",
    "dob": "1965-01-09",
    "place": "Hartlepool",
    "nation": "England",
-   "id": "Q5236644"
+   "id": "Q5236644",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Lloyd McGrath",
    "dob": "1965-02-24",
    "place": "Birmingham",
    "nation": "England",
-   "id": "Q6662621"
+   "id": "Q6662621",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Nick Tanner",
    "dob": "1965-05-24",
    "place": "Bristol",
    "nation": "England",
-   "id": "Q1985543"
+   "id": "Q1985543",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mike Galloway",
    "dob": "1965-05-30",
    "place": "Oswestry",
    "nation": "England",
-   "id": "Q3313313"
+   "id": "Q3313313",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Martin Allen",
    "dob": "1965-08-14",
    "place": "Reading",
    "nation": "England",
-   "id": "Q3850026"
+   "id": "Q3850026",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Williams",
    "dob": "1965-08-16",
    "place": "Stratford",
    "nation": "England",
-   "id": "Q7154397"
+   "id": "Q7154397",
+   "why": "several feed players share this name"
   },
   {
    "name": "Keith Jones",
    "dob": "1965-10-14",
    "place": "Dulwich",
    "nation": "England",
-   "id": "Q6384570"
+   "id": "Q6384570",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Neil Adams",
    "dob": "1965-11-23",
    "place": "Stoke-on-Trent",
    "nation": "England",
-   "id": "Q1721884"
+   "id": "Q1721884",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Kelly",
    "dob": "1965-11-25",
    "place": "Birmingham",
    "nation": "England",
-   "id": "Q2606601"
+   "id": "Q2606601",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tommy Wright",
    "dob": "1966-01-10",
    "place": "Dunfermline",
    "nation": "Scotland",
-   "id": "Q7820027"
+   "id": "Q7820027",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Andy Pearce",
    "dob": "1966-04-20",
    "place": "Bradford-on-Avon",
    "nation": "England",
-   "id": "Q4761156"
+   "id": "Q4761156",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mike Lake",
    "dob": "1966-11-16",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q6847601"
+   "id": "Q6847601",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Martin Taylor",
    "dob": "1966-12-09",
    "place": "Tamworth",
    "nation": "England",
-   "id": "Q6776728"
+   "id": "Q6776728",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Bob Taylor",
    "dob": "1967-02-03",
    "place": "Easington",
    "nation": "England",
-   "id": "Q4934158"
+   "id": "Q4934158",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Keith Scott",
    "dob": "1967-06-09",
    "place": "City of Westminster",
    "nation": "England",
-   "id": "Q6384994"
+   "id": "Q6384994",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Kenny Brown",
    "dob": "1967-07-11",
    "place": "Barking",
    "nation": "England",
-   "id": "Q6390984"
+   "id": "Q6390984",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Andy Clarke",
    "dob": "1967-07-22",
    "place": "Islington",
    "nation": "England",
-   "id": "Q4760521"
+   "id": "Q4760521",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Brian Horne",
    "dob": "1967-10-05",
    "place": "Billericay",
    "nation": "England",
-   "id": "Q4964097"
+   "id": "Q4964097",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Lee",
    "dob": "1967-11-05",
    "place": "Whitefield",
    "nation": "England",
-   "id": "Q5236428"
+   "id": "Q5236428",
+   "why": "feed birth date differs (1969-11-26)"
   },
   {
    "name": "Paul Miller",
    "dob": "1968-01-31",
    "place": "Woking",
    "nation": "England",
-   "id": "Q10401779"
+   "id": "Q10401779",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Brett Williams",
    "dob": "1968-03-19",
    "place": "Dudley",
    "nation": "England",
-   "id": "Q4962441"
+   "id": "Q4962441",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Smith",
    "dob": "1968-03-29",
    "place": "Stonehouse",
    "nation": "England",
-   "id": "Q5239899"
+   "id": "Q5239899",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul McDonald",
    "dob": "1968-04-20",
    "place": "Motherwell",
    "nation": "Scotland",
-   "id": "Q7152331"
+   "id": "Q7152331",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Moran",
    "dob": "1968-05-23",
    "place": "London Borough of Enfield",
    "nation": "England",
-   "id": "Q7152589"
+   "id": "Q7152589",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mark Robinson",
    "dob": "1968-11-21",
    "place": "Rochdale",
    "nation": "England",
-   "id": "Q6769476"
+   "id": "Q6769476",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Q6397003",
    "dob": "1969-03-15",
    "place": "Falmouth",
    "nation": "England",
-   "id": "Q6397003"
+   "id": "Q6397003",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Lee Howey",
    "dob": "1969-04-01",
    "place": "Sunderland",
    "nation": "England",
-   "id": "Q6513955"
+   "id": "Q6513955",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mark Robson",
    "dob": "1969-05-22",
    "place": "London Borough of Newham",
    "nation": "England",
-   "id": "Q3849542"
+   "id": "Q3849542",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mike Williams",
    "dob": "1969-11-21",
    "place": "Q22905",
    "nation": "England",
-   "id": "Q6849281"
+   "id": "Q6849281",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "John Hendry",
    "dob": "1970-01-06",
    "place": "Glasgow",
    "nation": "Scotland",
-   "id": "Q6238656"
+   "id": "Q6238656",
+   "why": "not in the Premier League feed"
+  },
+  {
+   "name": "Steve Yates",
+   "dob": "1970-01-29",
+   "place": "Bristol",
+   "nation": "England",
+   "id": "Q7614375",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Mark Williams",
    "dob": "1970-09-28",
    "place": "Stalybridge",
    "nation": "England",
-   "id": "Q6770361"
+   "id": "Q6770361",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Richard Smith",
    "dob": "1970-10-03",
    "place": "Lutterworth",
    "nation": "England",
-   "id": "Q7329114"
+   "id": "Q7329114",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Scott Taylor",
    "dob": "1970-11-23",
    "place": "Portsmouth",
    "nation": "England",
-   "id": "Q7437356"
+   "id": "Q7437356",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Brian McAllister",
    "dob": "1970-11-30",
    "place": "Glasgow",
    "nation": "Scotland",
-   "id": "Q2398985"
+   "id": "Q2398985",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Smith",
    "dob": "1970-12-26",
    "place": "Liverpool",
    "nation": "England",
-   "id": "Q5239900"
+   "id": "Q5239900",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Brightwell",
    "dob": "1971-01-07",
    "place": "Lutterworth",
    "nation": "England",
-   "id": "Q5231742"
+   "id": "Q5231742",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Ceri Hughes",
    "dob": "1971-02-26",
    "place": "Pontypridd",
    "nation": "Wales",
-   "id": "Q5064233"
+   "id": "Q5064233",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Gordon Watson",
    "dob": "1971-03-20",
    "place": "Sidcup",
    "nation": "England",
-   "id": "Q5585975"
+   "id": "Q5585975",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Jason Lee",
    "dob": "1971-05-09",
    "place": "Forest Gate",
    "nation": "England",
-   "id": "Q4260640"
+   "id": "Q4260640",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tony Thomas",
    "dob": "1971-07-12",
    "place": "Liverpool",
    "nation": "England",
-   "id": "Q7823555"
+   "id": "Q7823555",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Michael Hughes",
    "dob": "1971-08-02",
    "place": "Larne",
    "nation": "Northern Ireland",
-   "id": "Q745996"
+   "id": "Q745996",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Matthew Rush",
    "dob": "1971-08-06",
    "place": "Hackney Central",
    "nation": "England",
-   "id": "Q6791171"
+   "id": "Q6791171",
+   "why": "not in the Premier League feed"
   },
   {
-   "name": "Jonathan Hunt",
-   "dob": "1971-11-02",
-   "place": "London Borough of Camden",
+   "name": "Tommy Widdrington",
+   "dob": "1971-10-01",
+   "place": "Newcastle upon Tyne",
    "nation": "England",
-   "id": "Q6273451"
-  },
-  {
-   "name": "Scott Howie",
-   "dob": "1972-01-04",
-   "place": "Glasgow",
-   "nation": "Scotland",
-   "id": "Q7436531"
+   "id": "Q7820004",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Richard Hall",
    "dob": "1972-03-14",
    "place": "Ipswich",
    "nation": "England",
-   "id": "Q7326216"
+   "id": "Q7326216",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Hall",
    "dob": "1972-07-03",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q2438140"
+   "id": "Q2438140",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Scott Oakes",
    "dob": "1972-08-05",
    "place": "Leicester",
    "nation": "England",
-   "id": "Q7436975"
+   "id": "Q7436975",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Chris Allen",
    "dob": "1972-11-18",
    "place": "Oxford",
    "nation": "England",
-   "id": "Q2964641"
+   "id": "Q2964641",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Hughes",
    "dob": "1972-12-30",
    "place": "St Albans",
    "nation": "England",
-   "id": "Q5235228"
+   "id": "Q5235228",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Lee Jones",
    "dob": "1973-05-29",
    "place": "Wrexham",
    "nation": "Wales",
-   "id": "Q10379452"
+   "id": "Q10379452",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Ryan Jones",
    "dob": "1973-07-23",
    "place": "Sheffield",
    "nation": "England",
-   "id": "Q7384192"
+   "id": "Q7384192",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Lee Hodges",
    "dob": "1973-09-04",
    "place": "Epping",
    "nation": "England",
-   "id": "Q3228879"
+   "id": "Q3228879",
+   "why": "feed birth date differs (1978-03-02)"
   },
   {
    "name": "Simon Stewart",
    "dob": "1973-11-01",
    "place": "Leeds",
    "nation": "England",
-   "id": "Q7519829"
+   "id": "Q7519829",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Brian Linighan",
    "dob": "1973-11-02",
    "place": "Hartlepool",
    "nation": "England",
-   "id": "Q4964508"
+   "id": "Q4964508",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mark Watson",
    "dob": "1973-12-28",
    "place": "Birmingham",
    "nation": "England",
-   "id": "Q6770250"
+   "id": "Q6770250",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Kevin Watson",
    "dob": "1974-01-03",
    "place": "London Borough of Hackney",
    "nation": "England",
-   "id": "Q6397732"
+   "id": "Q6397732",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Andy Johnson",
    "dob": "1974-05-02",
    "place": "Bristol",
    "nation": "England",
-   "id": "Q3616274"
+   "id": "Q3616274",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Neil McCann",
    "dob": "1974-08-11",
    "place": "Greenock",
    "nation": "Scotland",
-   "id": "Q352812"
+   "id": "Q352812",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Vance Warner",
    "dob": "1974-09-03",
    "place": "Leeds",
    "nation": "England",
-   "id": "Q7914063"
+   "id": "Q7914063",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Scott Thomas",
    "dob": "1974-10-30",
    "place": "Bury",
    "nation": "England",
-   "id": "Q7437372"
+   "id": "Q7437372",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Martin Smith",
    "dob": "1974-11-13",
    "place": "Sunderland",
    "nation": "England",
-   "id": "Q6776625"
+   "id": "Q6776625",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Phil Morgan",
    "dob": "1974-12-18",
    "place": "Stoke-on-Trent",
    "nation": "England",
-   "id": "Q10433719"
+   "id": "Q10433719",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Nick Wright",
    "dob": "1975-10-15",
    "place": "Codnor",
    "nation": "England",
-   "id": "Q10399189"
+   "id": "Q10399189",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Jermaine Wright",
    "dob": "1975-10-21",
    "place": "Greenwich",
    "nation": "England",
-   "id": "Q6182385"
+   "id": "Q6182385",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Johnny Wright",
    "dob": "1975-11-24",
    "place": "Belfast",
    "nation": "Northern Ireland",
-   "id": "Q6267934"
+   "id": "Q6267934",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Darren Powell",
    "dob": "1976-03-10",
    "place": "London",
    "nation": "England",
-   "id": "Q5225102"
+   "id": "Q5225102",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Martin Phillips",
    "dob": "1976-03-13",
    "place": "Exeter",
    "nation": "England",
-   "id": "Q10379863"
+   "id": "Q10379863",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Hughes",
    "dob": "1976-04-19",
    "place": "Hammersmith",
    "nation": "England",
-   "id": "Q7151416"
+   "id": "Q7151416",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Scott Taylor",
    "dob": "1976-05-05",
    "place": "Chertsey",
    "nation": "England",
-   "id": "Q7437357"
+   "id": "Q7437357",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Lee Hughes",
    "dob": "1976-05-22",
    "place": "Smethwick",
    "nation": "England",
-   "id": "Q2458070"
+   "id": "Q2458070",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Murray",
    "dob": "1976-08-31",
    "place": "Carlisle",
    "nation": "England",
-   "id": "Q10379787"
+   "id": "Q10379787",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Beresford",
    "dob": "1976-11-11",
    "place": "Middlesbrough",
    "nation": "England",
-   "id": "Q5231330"
+   "id": "Q5231330",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Darren Williams",
    "dob": "1977-04-28",
    "place": "Middlesbrough",
    "nation": "England",
-   "id": "Q5225238"
+   "id": "Q5225238",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Wayne Brown",
    "dob": "1977-08-20",
    "place": "Barking",
    "nation": "England",
-   "id": "Q376816"
-  },
-  {
-   "name": "Mark Jackson",
-   "dob": "1977-09-30",
-   "place": "Leeds",
-   "nation": "England",
-   "id": "Q6768218"
+   "id": "Q376816",
+   "why": "feed birth date differs (1988-08-06)"
   },
   {
    "name": "Andy Williams",
    "dob": "1977-10-08",
    "place": "Bristol",
    "nation": "England",
-   "id": "Q528200"
+   "id": "Q528200",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Rory Allen",
    "dob": "1977-10-17",
    "place": "Beckenham",
    "nation": "England",
-   "id": "Q727293"
+   "id": "Q727293",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Hughes",
    "dob": "1978-02-01",
    "place": "Wrexham",
    "nation": "Wales",
-   "id": "Q5235229"
+   "id": "Q5235229",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Stefan Oakes",
    "dob": "1978-09-06",
    "place": "Leicester",
    "nation": "England",
-   "id": "Q7606225"
+   "id": "Q7606225",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Russell Anderson",
    "dob": "1978-10-25",
    "place": "Aberdeen",
    "nation": "Scotland",
-   "id": "Q2453511"
+   "id": "Q2453511",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Robinson",
    "dob": "1978-11-20",
    "place": "Sunderland",
    "nation": "England",
-   "id": "Q7153285"
+   "id": "Q7153285",
+   "why": "feed birth date differs (1979-10-15)"
   },
   {
    "name": "Paul Robinson",
    "dob": "1978-12-14",
    "place": "Watford",
    "nation": "England",
-   "id": "Q725397"
+   "id": "Q725397",
+   "why": "feed birth date differs (1979-10-15)"
   },
   {
    "name": "Tommy Miller",
    "dob": "1979-01-08",
    "place": "Shotton Colliery",
    "nation": "England",
-   "id": "Q7819704"
+   "id": "Q7819704",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Wesley Boyle",
    "dob": "1979-03-30",
    "place": "Portadown",
    "nation": "Northern Ireland",
-   "id": "Q7983853"
-  },
-  {
-   "name": "Richard Hughes",
-   "dob": "1979-06-25",
-   "place": "Glasgow",
-   "nation": "Scotland",
-   "id": "Q1386177"
+   "id": "Q7983853",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Martin Taylor",
    "dob": "1979-11-09",
    "place": "Ashington",
    "nation": "England",
-   "id": "Q470727"
+   "id": "Q470727",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Paul Smith",
    "dob": "1979-12-17",
    "place": "Epsom",
    "nation": "England",
-   "id": "Q949361"
+   "id": "Q949361",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Carl Fletcher",
    "dob": "1980-04-07",
    "place": "Surrey Heath",
    "nation": "England",
-   "id": "Q722864"
+   "id": "Q722864",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Grant McCann",
    "dob": "1980-04-14",
    "place": "Belfast",
    "nation": "Northern Ireland",
-   "id": "Q2710509"
+   "id": "Q2710509",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Lee Morris",
    "dob": "1980-04-30",
    "place": "Blackpool",
    "nation": "England",
-   "id": "Q6514603"
+   "id": "Q6514603",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Wayne Gray",
    "dob": "1980-11-07",
    "place": "London",
    "nation": "England",
-   "id": "Q7976279"
+   "id": "Q7976279",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Darius Henderson",
    "dob": "1981-09-07",
    "place": "Sutton",
    "nation": "England",
-   "id": "Q3016183"
+   "id": "Q3016183",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Gareth Williams",
    "dob": "1981-12-16",
    "place": "Glasgow",
    "nation": "Scotland",
-   "id": "Q195021"
+   "id": "Q195021",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Andy Welsh",
    "dob": "1983-01-24",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q527975"
+   "id": "Q527975",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Simon Johnson",
    "dob": "1983-03-09",
    "place": "West Bromwich",
    "nation": "England",
-   "id": "Q10401988"
+   "id": "Q10401988",
+   "why": "not in the Premier League feed"
   },
   {
-   "name": "Dean Leacock",
-   "dob": "1984-06-10",
-   "place": "Croydon",
+   "name": "Lloyd Sam",
+   "dob": "1984-09-27",
+   "place": "Leeds",
    "nation": "England",
-   "id": "Q902970"
+   "id": "Q2457830",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Tommy Wright",
    "dob": "1984-09-28",
    "place": "Kirby Muxloe",
    "nation": "England",
-   "id": "Q7820028"
+   "id": "Q7820028",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Chris Brown",
    "dob": "1984-12-11",
    "place": "Doncaster",
    "nation": "England",
-   "id": "Q2964666"
+   "id": "Q2964666",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Ian Henderson",
    "dob": "1985-01-24",
    "place": "Thetford",
    "nation": "England",
-   "id": "Q4820716"
+   "id": "Q4820716",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Anton Ferdinand",
    "dob": "1985-02-18",
    "place": "Peckham",
    "nation": "England",
-   "id": "Q298330"
+   "id": "Q298330",
+   "why": "not in the Premier League feed"
+  },
+  {
+   "name": "Osei Sankofa",
+   "dob": "1985-03-19",
+   "place": "London",
+   "nation": "England",
+   "id": "Q7106476",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Dan Smith",
    "dob": "1986-10-05",
    "place": "Sunderland",
    "nation": "England",
-   "id": "Q5214400"
+   "id": "Q5214400",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mark Hughes",
    "dob": "1986-12-09",
    "place": "Kirkby",
    "nation": "England",
-   "id": "Q1494363"
+   "id": "Q1494363",
+   "why": "feed birth date differs (1963-11-01)"
   },
   {
    "name": "Lee Martin",
    "dob": "1987-02-09",
    "place": "Taunton",
    "nation": "England",
-   "id": "Q219372"
+   "id": "Q219372",
+   "why": "feed birth date differs (1968-02-05)"
   },
   {
    "name": "Billy Jones",
    "dob": "1987-03-24",
    "place": "Shrewsbury",
    "nation": "England",
-   "id": "Q3640042"
-  },
-  {
-   "name": "Graham Dorrans",
-   "dob": "1987-05-05",
-   "place": "Glasgow",
-   "nation": "Scotland",
-   "id": "Q556630"
+   "id": "Q3640042",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Adam Johnson",
    "dob": "1987-07-14",
    "place": "Sunderland",
    "nation": "England",
-   "id": "Q71239"
+   "id": "Q71239",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Kyel Reid",
    "dob": "1987-11-26",
    "place": "London",
    "nation": "England",
-   "id": "Q1370451"
+   "id": "Q1370451",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Ben Hutchinson",
    "dob": "1987-11-27",
    "place": "Nottingham",
    "nation": "England",
-   "id": "Q2543113"
+   "id": "Q2543113",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Michael Johnson",
    "dob": "1988-02-24",
    "place": "Urmston",
    "nation": "England",
-   "id": "Q29456"
-  },
-  {
-   "name": "Kieran Lee",
-   "dob": "1988-06-22",
-   "place": "Tameside",
-   "nation": "England",
-   "id": "Q1278057"
+   "id": "Q29456",
+   "why": "feed birth date differs (1973-07-04)"
   },
   {
    "name": "John Johnson",
    "dob": "1988-09-16",
    "place": "Middlesbrough",
    "nation": "England",
-   "id": "Q6241936"
+   "id": "Q6241936",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Chris Martin",
    "dob": "1988-11-04",
    "place": "Beccles",
    "nation": "England",
-   "id": "Q519982"
+   "id": "Q519982",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Elliott Bennett",
    "dob": "1988-12-18",
    "place": "Telford",
    "nation": "England",
-   "id": "Q448303"
+   "id": "Q448303",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Theo Robinson",
    "dob": "1989-01-22",
    "place": "Birmingham",
    "nation": "England",
-   "id": "Q276978"
+   "id": "Q276978",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Josh Walker",
    "dob": "1989-02-21",
    "place": "Newcastle upon Tyne",
    "nation": "England",
-   "id": "Q1173037"
+   "id": "Q1173037",
+   "why": "not in the Premier League feed"
+  },
+  {
+   "name": "Ryan Bertrand",
+   "dob": "1989-08-05",
+   "place": "Southwark",
+   "nation": "England",
+   "id": "Q296391",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Sebastián romero",
    "dob": "1990-05-24",
    "place": "London",
    "nation": "England",
-   "id": "Q133760"
+   "id": "Q133760",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Josh Payne",
    "dob": "1990-11-25",
    "place": "Basingstoke",
    "nation": "England",
-   "id": "Q1101616"
+   "id": "Q1101616",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "David Davis",
    "dob": "1991-02-20",
    "place": "Smethwick",
    "nation": "England",
-   "id": "Q843907"
+   "id": "Q843907",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Matt Phillips",
    "dob": "1991-03-13",
    "place": "Aylesbury",
    "nation": "England",
-   "id": "Q2639636"
+   "id": "Q2639636",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tommy Smith",
    "dob": "1992-04-14",
    "place": "Warrington",
    "nation": "England",
-   "id": "Q16235031"
+   "id": "Q16235031",
+   "why": "feed birth date differs (1980-05-22)"
   },
   {
    "name": "Q165772",
    "dob": "1993-03-05",
    "place": "Sheffield",
    "nation": "England",
-   "id": "Q165772"
+   "id": "Q165772",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Larnell Cole",
    "dob": "1993-03-09",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q674513"
+   "id": "Q674513",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Jordan Clark",
    "dob": "1993-09-22",
    "place": "Hoyland",
    "nation": "England",
-   "id": "Q10514581"
+   "id": "Q10514581",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Josh Vela",
    "dob": "1993-12-14",
    "place": "Salford",
    "nation": "England",
-   "id": "Q10535561"
+   "id": "Q10535561",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tyias Browning",
    "dob": "1994-05-27",
    "place": "Liverpool",
    "nation": "England",
-   "id": "Q15895665"
+   "id": "Q15895665",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Adam Campbell",
    "dob": "1995-01-01",
    "place": "North Shields",
    "nation": "England",
-   "id": "Q4202937"
+   "id": "Q4202937",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Joel Coleman",
    "dob": "1995-09-26",
    "place": "Bolton",
    "nation": "England",
-   "id": "Q19654797"
+   "id": "Q19654797",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Jason McCarthy",
    "dob": "1995-11-07",
    "place": "Southampton",
    "nation": "England",
-   "id": "Q18681316"
+   "id": "Q18681316",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tyreke Johnson",
    "dob": "1998-11-03",
    "place": "Swindon",
    "nation": "England",
-   "id": "Q59811963"
+   "id": "Q59811963",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tyler Roberts",
    "dob": "1999-01-12",
    "place": "Gloucester",
    "nation": "England",
-   "id": "Q24084311"
+   "id": "Q24084311",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Tyrese Campbell",
    "dob": "1999-12-28",
    "place": "Cheadle Hulme",
    "nation": "England",
-   "id": "Q50091147"
+   "id": "Q50091147",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Brandon Williams",
    "dob": "2000-09-03",
    "place": "Manchester",
    "nation": "England",
-   "id": "Q69569088"
+   "id": "Q69569088",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Jordan Thomas",
    "dob": "2001-01-02",
    "place": "Greenwich",
    "nation": "England",
-   "id": "Q97731557"
+   "id": "Q97731557",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Femi Azeez",
    "dob": "2001-06-05",
    "place": "Essex",
    "nation": "England",
-   "id": "Q105789835"
+   "id": "Q105789835",
+   "why": "in the feed with no appearances recorded"
   },
   {
    "name": "Harvey White",
    "dob": "2001-09-19",
    "place": "Maidstone",
    "nation": "England",
-   "id": "Q102414029"
+   "id": "Q102414029",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Nathan Wood",
    "dob": "2002-05-31",
    "place": "Middlesbrough",
    "nation": "England",
-   "id": "Q56091615"
+   "id": "Q56091615",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Joe White",
    "dob": "2002-10-01",
    "place": "Carlisle",
    "nation": "England",
-   "id": "Q110912865"
+   "id": "Q110912865",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Aaron Ramsey",
    "dob": "2003-01-21",
    "place": "Great Barr",
    "nation": "England",
-   "id": "Q107920924"
+   "id": "Q107920924",
+   "why": "feed birth date differs (1990-12-26)"
   },
   {
    "name": "Andre Brooks",
    "dob": "2003-08-20",
    "place": "Sheffield",
    "nation": "England",
-   "id": "Q116938905"
+   "id": "Q116938905",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Zack Nelson",
    "dob": "2005-04-21",
    "place": "London",
    "nation": "England",
-   "id": "Q124822996"
+   "id": "Q124822996",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "George Abbott",
    "dob": "2005-08-17",
    "place": "Islington",
    "nation": "England",
-   "id": "Q118915232"
+   "id": "Q118915232",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Archie Gray",
    "dob": "2006-03-12",
    "place": "Durham",
    "nation": "England",
-   "id": "Q114826394"
+   "id": "Q114826394",
+   "why": "not in the Premier League feed"
   },
   {
    "name": "Mikey Moore",
    "dob": "2007-08-11",
    "place": "Southwark",
    "nation": "England",
-   "id": "Q119700600"
+   "id": "Q119700600",
+   "why": "not in the Premier League feed"
   }
  ],
  "notPlaced": []
