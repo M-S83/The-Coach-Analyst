@@ -194,8 +194,20 @@ def main():
         added += 1
 
     players.sort(key=lambda p: p["dob"])
-    gaps_noapps = [{"name": p["name"], "dob": p["dob"], "place": p["place"], "nation": p["nation"], "id": p["id"]}
-                   for p in players if p.get("apps") is None]
+    def why(p):
+        k = key(p["name"])
+        fs = [f for f in feed.values() if k and (fk := key(f["name"]["display"])) and fk[0] == k[0]
+              and (fk[1].startswith(k[1]) or k[1].startswith(fk[1]))]
+        if not fs:
+            return "not in the Premier League feed"
+        with_apps = [f for f in fs if apps.get(int(f["id"]))]
+        if not with_apps:
+            return "in the feed with no appearances recorded"
+        if len(with_apps) > 1:
+            return "several feed players share this name"
+        return f"feed birth date differs ({birth_date(with_apps[0])})"
+    gaps_noapps = [{"name": p["name"], "dob": p["dob"], "place": p["place"], "nation": p["nation"], "id": p["id"],
+                    "why": why(p)} for p in players if p.get("apps") is None]
     data["plCheck"] = {"registered": len(feed), "played": len(played), "matchedByDate": matched,
                        "matchedByName": len(rescued), "addedFromFeed": added,
                        "noAppearanceTotal": len(gaps_noapps), "notPlaced": len(gaps_unplaced)}
