@@ -21,5 +21,6 @@ at_pod(-1) {
 // Camera boards and lenses, for clearance checks.
 for (s = [-1, 1]) at_pod(s) translate([0, explode, 0]) cam_frame(s) {
     color("#2F6B44") translate([0, -pad_back - cam_standoff - 1.6 / 2, 0]) cube([cam_board, 1.6, cam_board], center = true);
-    color("#555555") translate([0, -pad_back - cam_standoff, 0]) rotate([-90, 0, 0]) cylinder(d = lens_barrel_d, h = pad_back + cam_standoff + lens_front);
+    color("#555555") translate([0, lens_front - lens_ttl + 5.3, 0]) rotate([-90, 0, 0]) cylinder(d = lens_barrel_d, h = lens_thread_l);
+    color("#555555") translate([0, lens_front - lens_cap_l, 0]) rotate([-90, 0, 0]) cylinder(d = lens_cap_d, h = lens_cap_l);
 }

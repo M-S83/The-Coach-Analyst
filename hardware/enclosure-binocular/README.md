@@ -49,7 +49,7 @@ These values in `bino.scad` are placeholders:
 - **Heatsink:** height with the fan fitted (`heatsink_h`)
 - **Bank:** size, plus where its button and USB-C port sit (`bank_w`, `bank_l`, `bank_h`, `bank_button_y`, `bank_port_y`)
 - **Camera board:** size, hole spacing and lens holder footprint (`cam_board`, `cam_holes`, `cam_holder_w`)
-- **Lens:** how much longer the CIL358 is than the stock lens once both are focused (`lens_extra`, set to 10mm), its front cap diameter (`lens_cap_d`, set to 18mm), and how far the glass sits ahead of the nose plate (`lens_front`). A longer lens pushes the camera board further back, so the glass stays in the same place behind the hood. Up to about 14mm extra fits; at 15mm the cool pod's camera board touches the battery.
+- **Camera board:** how far the sensor surface sits above the board's front face (`sensor_h`, set to 1.3mm). The lens is set from the Commonlands drawing for the CIL358-F1.9-M12A650: 29.7mm from image plane to front, Ø17mm front cap, M12x0.5 thread. The camera board sits on standoffs sized so the lens front lands 2mm ahead of the nose plate face (`lens_front`).
 - **Ribbons:** camera 2's ribbon crosses to the board through the tunnel under the channel. It needs about 15cm.
 
 ## Fit at the placeholder sizes
@@ -58,4 +58,5 @@ These values in `bino.scad` are placeholders:
 - **Room above the heatsink:** 26mm.
 - **Cradle:** walls 4.6mm thick at the pocket floor.
 - **Battery:** sits 4mm above the lid split, with about 30mm free above it.
-- **Size:** 228 × 142 × 77.5mm including the bubble-level seat. The body grew 6mm longer to make room for the longer lenses. The hoods reach about 36mm ahead of the nose plates.
+- **Size:** 228 × 136 × 77.5mm including the bubble-level seat. The hoods reach about 36mm ahead of the nose plates.
+- **Camera boards:** on 11mm standoffs behind the pads, which puts the CIL358's front 2mm ahead of the nose plate.

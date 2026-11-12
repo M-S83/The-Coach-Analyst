@@ -23,18 +23,20 @@ sd_y = -40;                   // microSD slot on the board underside, world Y
 cam_board = 38;               // Radxa Camera 4K board, square
 cam_holes = 30;               // its M2 hole spacing, square
 cam_holder_w = 20;            // M12 lens holder footprint, square
-lens_extra = 10;              // MEASURE: CIL358 length minus the stock lens length, both screwed in to focus
-cam_standoff = 6 + lens_extra; // gap between pad and camera board; a longer lens moves the board back, not the glass forward
+sensor_h = 1.3;               // MEASURE: image plane (sensor surface) above the camera board's front face
 lens_r = 7;                   // radius of the lens front opening (conservative for the CIL358)
-lens_barrel_d = 14;           // M12 barrel
-lens_cap_d = 18;              // MEASURE: CIL358 front cap, wider than the thread
+lens_barrel_d = 12;           // CIL358-F1.9-M12A650 drawing rev 3: M12x0.5 thread
+lens_cap_d = 17;              // front cap diameter
+lens_cap_l = 4.6;             // front cap length (29.7 - 19.8 - 5.3)
+lens_thread_l = 19.8;
+lens_ttl = 29.7;              // image plane to front of the lens
 lens_front = 2;               // lens front glass ahead of the nose plate face, along the lens axis
 
 // ---------- Body ----------
 pod_a = 56;                   // pod half-width (outer)
 pod_b = 38;                   // pod half-height (outer)
 pod_cx = 58;                  // pod centre offset from the middle
-body_l = 142;                 // body length front to back (+6 for the longer CIL358 lenses)
+body_l = 136;                 // body length front to back
 wall = 3;
 bridge_w = 14;                // solid bridge between the pods
 valley_z = 25;                // height of the valley floor (bridge top)
@@ -62,6 +64,7 @@ hfov = 57;                    // Commonlands CIL358 5.8mm (F-theta, -9%) on IMX4
 vfov = 32;
 hood_margin = 1.5;            // clearance outside the field of view
 pad_back = 18;                // camera pad face behind the nose plate front face
+cam_standoff = lens_ttl + sensor_h - pad_back - lens_front; // pad to camera board, so the lens front lands at lens_front
 boss_len = 14;                // hood boss, ahead of the nose plate face
 boss_w = 58;
 boss_h = 40;
@@ -78,7 +81,7 @@ board_z = -18;                // underside of the board
 board_yc = -26;
 standoff_d = 6;
 m25_insert_d = 3.6;
-bank_yc = -18;
+bank_yc = -15;
 bank_z0 = -26;                // underside of the bank
 foam_t = 3;
 plunger_z = -11;
@@ -121,6 +124,7 @@ module at_pods() for (s = [-1, 1]) at_pod(s) children();
 // Fit checks, printed in the console.
 echo(str("Board side clearance at its height: ", inner_half_w(board_z) - board_w / 2, " mm"));
 echo(str("Cradle wall at the pocket floor: ", inner_half_w(bank_z0 - foam_t) - 0.6 - (bank_w / 2 + foam_t + 0.5), " mm"));
+echo(str("Camera standoff length: ", cam_standoff, " mm"));
 echo(str("Room above the heatsink: ", (pod_b - wall) - (board_z + board_t + heatsink_h), " mm"));
 echo(str("Hood mouth inside: ", req_w(boss_len + hood_top - lens_front), " x ", req_h(boss_len + hood_top - lens_front), " mm"));
 
