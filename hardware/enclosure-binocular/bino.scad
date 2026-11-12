@@ -23,16 +23,18 @@ sd_y = -40;                   // microSD slot on the board underside, world Y
 cam_board = 38;               // Radxa Camera 4K board, square
 cam_holes = 30;               // its M2 hole spacing, square
 cam_holder_w = 20;            // M12 lens holder footprint, square
-cam_standoff = 6;             // gap between pad and camera board
-lens_r = 7;                   // radius of the 6mm lens front element
+lens_extra = 10;              // MEASURE: CIL358 length minus the stock lens length, both screwed in to focus
+cam_standoff = 6 + lens_extra; // gap between pad and camera board; a longer lens moves the board back, not the glass forward
+lens_r = 7;                   // radius of the lens front opening (conservative for the CIL358)
 lens_barrel_d = 14;           // M12 barrel
+lens_cap_d = 18;              // MEASURE: CIL358 front cap, wider than the thread
 lens_front = 2;               // lens front glass ahead of the nose plate face, along the lens axis
 
 // ---------- Body ----------
 pod_a = 56;                   // pod half-width (outer)
 pod_b = 38;                   // pod half-height (outer)
 pod_cx = 58;                  // pod centre offset from the middle
-body_l = 136;                 // body length front to back
+body_l = 142;                 // body length front to back (+6 for the longer CIL358 lenses)
 wall = 3;
 bridge_w = 14;                // solid bridge between the pods
 valley_z = 25;                // height of the valley floor (bridge top)
@@ -56,27 +58,27 @@ lens_z = 2;                   // lens centre height on the nose plate
 cam_splay = 15;               // each camera, away from the diagonal
 cam_pitch = 19;               // down, relative to the body
 body_tilt = 4;                // body sits tail-down on the bracket: 19 - 4 = 15 deg down overall
-hfov = 50;                    // 6mm lens on IMX415
-vfov = 29;
+hfov = 57;                    // Commonlands CIL358 5.8mm (F-theta, -9%) on IMX415, ~55-57 deg
+vfov = 32;
 hood_margin = 1.5;            // clearance outside the field of view
 pad_back = 18;                // camera pad face behind the nose plate front face
 boss_len = 14;                // hood boss, ahead of the nose plate face
-boss_w = 54;
+boss_w = 58;
 boss_h = 40;
 hood_top = 22;                // hood length on top (the visor)
 hood_bottom = 14;             // hood length underneath
 hood_wall = 2;
 hood_flange_t = 3;
-hood_flange_w = 52;
+hood_flange_w = 56;
 hood_flange_h = 30;
-hood_screw_x = 22;
+hood_screw_x = 24;
 
 // ---------- Inside ----------
 board_z = -18;                // underside of the board
 board_yc = -26;
 standoff_d = 6;
 m25_insert_d = 3.6;
-bank_yc = -15;
+bank_yc = -18;
 bank_z0 = -26;                // underside of the bank
 foam_t = 3;
 plunger_z = -11;
@@ -156,7 +158,7 @@ module exhaust_hood() {
     for (x = [-26, 24]) translate([x, -body_l / 2 - 12, 10]) cube([2, 12 + eps, 20.5]);
 }
 
-module level_boss() translate([0, level_y, 30]) cylinder(d = level_d + 6, h = pod_b + 1.5 - 30);
+module level_boss() translate([0, level_y, pod_b - 2]) cylinder(d = level_d + 6, h = 3.5);
 
 module spout() translate([-bridge_w / 2, -body_l / 2 - spout_l, valley_z - 6]) cube([bridge_w, spout_l + eps, 6]);
 
@@ -247,9 +249,9 @@ module nose(s) difference() {
     }
     cam_frame(s) {
         translate([0, -pad_back - cam_standoff - 1, 0]) cube([cam_holder_w + 1, 2 * (pad_back + cam_standoff - 5), cam_holder_w + 1], center = true);
-        translate([0, -6, 0]) rotate([-90, 0, 0]) cylinder(d = lens_barrel_d + 1, h = lens_front + 6 + eps);
+        translate([0, -6, 0]) rotate([-90, 0, 0]) cylinder(d = max(lens_barrel_d, lens_cap_d) + 1, h = lens_front + 6 + eps);
         hull() {                                          // opening that clears the field of view
-            slab(lens_front, max(req_w(0), lens_barrel_d + 1), max(req_h(0), lens_barrel_d + 1));
+            slab(lens_front, max(req_w(0), lens_cap_d + 1), max(req_h(0), lens_cap_d + 1));
             slab(boss_len + 1, req_w(boss_len + 1 - lens_front), req_h(boss_len + 1 - lens_front));
         }
         for (x = [-1, 1], z = [-1, 1])

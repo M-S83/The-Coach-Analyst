@@ -17,3 +17,9 @@ at_pod(-1) {
     color("#2F6B44") translate([-board_w / 2, board_yc - board_d / 2, board_z]) cube([board_w, board_d, board_t]);
     color("#B24A18", 0.7) translate([-40, board_yc - 30, board_z + board_t]) cube([80, 60, heatsink_h]);
 }
+
+// Camera boards and lenses, for clearance checks.
+for (s = [-1, 1]) at_pod(s) translate([0, explode, 0]) cam_frame(s) {
+    color("#2F6B44") translate([0, -pad_back - cam_standoff - 1.6 / 2, 0]) cube([cam_board, 1.6, cam_board], center = true);
+    color("#555555") translate([0, -pad_back - cam_standoff, 0]) rotate([-90, 0, 0]) cylinder(d = lens_barrel_d, h = pad_back + cam_standoff + lens_front);
+}

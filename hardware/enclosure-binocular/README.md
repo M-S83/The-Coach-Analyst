@@ -22,7 +22,7 @@ Export with `openscad -o base.stl base.scad`, and the same for each part. When y
 No separate visor. The hoods are the visors.
 
 - **Rain from above:** the body sits 4° tail-down, so rain on the pods runs backwards and never over the front. Rain that lands on a hood runs forward along its top. The top extends 8mm further forward than the bottom, so it drips clear of the opening. A small groove under the top lip stops drips creeping back inside onto the glass.
-- **Field of view:** each hood flares to stay just outside the 6mm lens's 50° × 29° view, with 1.5mm margin. A round hood that size would cut off the corners of the image.
+- **Field of view:** each hood flares to stay just outside the lens's view, with 1.5mm margin. It's set for the Commonlands CIL358 5.8mm lens, about 57° × 32° on the IMX415. A round hood that size would cut off the corners of the image.
 - **Bench testing:** take the hoods off when using the stock 2.95mm lens. Its 75° view is wider than the hood.
 
 ## Bought parts
@@ -49,7 +49,7 @@ These values in `bino.scad` are placeholders:
 - **Heatsink:** height with the fan fitted (`heatsink_h`)
 - **Bank:** size, plus where its button and USB-C port sit (`bank_w`, `bank_l`, `bank_h`, `bank_button_y`, `bank_port_y`)
 - **Camera board:** size, hole spacing and lens holder footprint (`cam_board`, `cam_holes`, `cam_holder_w`)
-- **Lens:** front element radius, barrel, and how far the glass sits ahead of the nose plate once focused (`lens_r`, `lens_barrel_d`, `lens_front`)
+- **Lens:** how much longer the CIL358 is than the stock lens once both are focused (`lens_extra`, set to 10mm), its front cap diameter (`lens_cap_d`, set to 18mm), and how far the glass sits ahead of the nose plate (`lens_front`). A longer lens pushes the camera board further back, so the glass stays in the same place behind the hood. Up to about 14mm extra fits; at 15mm the cool pod's camera board touches the battery.
 - **Ribbons:** camera 2's ribbon crosses to the board through the tunnel under the channel. It needs about 15cm.
 
 ## Fit at the placeholder sizes
@@ -58,4 +58,4 @@ These values in `bino.scad` are placeholders:
 - **Room above the heatsink:** 26mm.
 - **Cradle:** walls 4.6mm thick at the pocket floor.
 - **Battery:** sits 4mm above the lid split, with about 30mm free above it.
-- **Size:** 228 × 136 × 77.5mm including the bubble-level seat. The hoods reach about 36mm ahead of the nose plates.
+- **Size:** 228 × 142 × 77.5mm including the bubble-level seat. The body grew 6mm longer to make room for the longer lenses. The hoods reach about 36mm ahead of the nose plates.
