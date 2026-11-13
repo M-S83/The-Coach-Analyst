@@ -61,6 +61,24 @@ These values in `bino.scad` are placeholders:
 - **Size:** 228 × 136 × 77.5mm including the bubble-level seat. The hoods reach about 36mm ahead of the nose plates.
 - **Camera boards:** on the printed 6mm standoffs, which puts the CIL358's front 7mm ahead of the nose plate.
 
+## Weatherproofing the prototype
+
+The lens glass is well sheltered: rain has to arrive within about 16° of horizontal, blowing straight at the camera, to get under the hood's top lip. Drips off that lip land about 17mm in front of the hood's bottom edge, clear of the opening. The CIL358 itself is IP67, so wet glass only spoils the picture.
+
+The places where water can get inside the box, and what to do on the printed parts:
+
+- **Gap around each lens cap:** the opening has to let the cap turn for focusing, so it's open into the pod. After focusing, run a thin bead of neutral-cure silicone round the cap. It peels off if you need to refocus.
+- **Lid screws:** the 8 counterbores face up and the screws pass inside the gasket line, so water can run down a screw into the box. Fit M3 sealing washers (rubber-backed) under each screw head.
+- **Status LED:** use a sealed panel holder, or bed it in silicone.
+- **Intake louvres:** they slope down outwards, but rain on the front plate runs across them. Keep the mesh behind them and watch them during the hose test.
+
+Hose test before the first match: rig on its bracket at 4° tail-down, hose from above and from the front for a couple of minutes, then open it and look for water.
+
+Changes worth making on a reprint, depending on the hose test:
+
+- An O-ring groove in each lens pocket, so the cap seals as it turns and the O-ring's friction also holds focus.
+- Raised bosses round the lid screws so water runs off instead of sitting in the counterbores.
+
 ## Prototype notes (rev A, printed)
 
 - **Lens hole:** the printed nose plates have a 15mm bore just behind where the lens's 17mm cap sits, with only a few tenths of a millimetre to spare. Before assembly, screw a lens into each camera and try it in its nose plate. If the cap binds or won't turn freely for focusing, open the front of the hole to 18mm with a step drill or round file. `FIX A1` in the model makes this an 18mm pocket for any reprint.
