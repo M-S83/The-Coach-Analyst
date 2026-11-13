@@ -4,6 +4,9 @@
 // Axes: X across the rig (warm pod at -X, cool pod at +X), Y forward (+Y faces the pitch),
 // Z up. Origin at the centre of the body on the lid split line.
 // Every size is a variable. Values marked MEASURE are placeholders until the parts are on the bench.
+//
+// Rev A: this is the geometry of the printed prototype, plus two small fixes marked FIX A1.
+// Lenses: Commonlands CIL358-F1.9-M12A650 (5.8mm). See hardware/reference/lens-CIL358.
 
 $fn = 48;
 eps = 0.01;
@@ -24,13 +27,13 @@ cam_board = 38;               // Radxa Camera 4K board, square
 cam_holes = 30;               // its M2 hole spacing, square
 cam_holder_w = 20;            // M12 lens holder footprint, square
 sensor_h = 1.3;               // MEASURE: image plane (sensor surface) above the camera board's front face
-lens_r = 7;                   // radius of the lens front opening (conservative for the CIL358)
-lens_barrel_d = 12;           // CIL358-F1.9-M12A650 drawing rev 3: M12x0.5 thread
-lens_cap_d = 17;              // front cap diameter
-lens_cap_l = 4.6;             // front cap length (29.7 - 19.8 - 5.3)
+lens_r = 7;                   // radius used to size the opening and hood
+lens_barrel_d = 14;           // bore behind the lens cap (the M12x0.5 thread is 12)
+lens_front = 2;               // where the opening and hood flare start, ahead of the nose plate face
+lens_ttl = 29.7;              // CIL358: image plane to lens front
+lens_cap_d = 17;              // CIL358 front cap
+lens_cap_l = 4.6;
 lens_thread_l = 19.8;
-lens_ttl = 29.7;              // image plane to front of the lens
-lens_front = 2;               // lens front glass ahead of the nose plate face, along the lens axis
 
 // ---------- Body ----------
 pod_a = 56;                   // pod half-width (outer)
@@ -60,21 +63,24 @@ lens_z = 2;                   // lens centre height on the nose plate
 cam_splay = 15;               // each camera, away from the diagonal
 cam_pitch = 19;               // down, relative to the body
 body_tilt = 4;                // body sits tail-down on the bracket: 19 - 4 = 15 deg down overall
-hfov = 57;                    // Commonlands CIL358 5.8mm (F-theta, -9%) on IMX415, ~55-57 deg
-vfov = 32;
+hfov = 50;                    // the opening and hoods were sized for 50 x 29 deg from lens_front.
+vfov = 29;                    // The CIL358 sees about 57 x 32 but its front sits 5mm further forward
+                              // (cap_front), so the printed hoods still clear it. Checked against the
+                              // lens's corner rays from its entrance pupil.
 hood_margin = 1.5;            // clearance outside the field of view
 pad_back = 18;                // camera pad face behind the nose plate front face
-cam_standoff = lens_ttl + sensor_h - pad_back - lens_front; // pad to camera board, so the lens front lands at lens_front
+cam_standoff = 6;             // printed standoffs: pad to camera board
+cap_front = lens_ttl + sensor_h - pad_back - cam_standoff;  // where the CIL358 front actually lands (7mm)
 boss_len = 14;                // hood boss, ahead of the nose plate face
-boss_w = 58;
+boss_w = 54;
 boss_h = 40;
 hood_top = 22;                // hood length on top (the visor)
 hood_bottom = 14;             // hood length underneath
 hood_wall = 2;
 hood_flange_t = 3;
-hood_flange_w = 56;
+hood_flange_w = 52;
 hood_flange_h = 30;
-hood_screw_x = 24;
+hood_screw_x = 22;
 
 // ---------- Inside ----------
 board_z = -18;                // underside of the board
@@ -124,7 +130,7 @@ module at_pods() for (s = [-1, 1]) at_pod(s) children();
 // Fit checks, printed in the console.
 echo(str("Board side clearance at its height: ", inner_half_w(board_z) - board_w / 2, " mm"));
 echo(str("Cradle wall at the pocket floor: ", inner_half_w(bank_z0 - foam_t) - 0.6 - (bank_w / 2 + foam_t + 0.5), " mm"));
-echo(str("Camera standoff length: ", cam_standoff, " mm"));
+echo(str("CIL358 front lands at ", cap_front, " mm ahead of the nose plate face"));
 echo(str("Room above the heatsink: ", (pod_b - wall) - (board_z + board_t + heatsink_h), " mm"));
 echo(str("Hood mouth inside: ", req_w(boss_len + hood_top - lens_front), " x ", req_h(boss_len + hood_top - lens_front), " mm"));
 
@@ -162,7 +168,7 @@ module exhaust_hood() {
     for (x = [-26, 24]) translate([x, -body_l / 2 - 12, 10]) cube([2, 12 + eps, 20.5]);
 }
 
-module level_boss() translate([0, level_y, pod_b - 2]) cylinder(d = level_d + 6, h = 3.5);
+module level_boss() translate([0, level_y, pod_b - 2]) cylinder(d = level_d + 6, h = 3.5);   // FIX A1: no longer pokes into the lid
 
 module spout() translate([-bridge_w / 2, -body_l / 2 - spout_l, valley_z - 6]) cube([bridge_w, spout_l + eps, 6]);
 
@@ -253,9 +259,10 @@ module nose(s) difference() {
     }
     cam_frame(s) {
         translate([0, -pad_back - cam_standoff - 1, 0]) cube([cam_holder_w + 1, 2 * (pad_back + cam_standoff - 5), cam_holder_w + 1], center = true);
-        translate([0, -6, 0]) rotate([-90, 0, 0]) cylinder(d = max(lens_barrel_d, lens_cap_d) + 1, h = lens_front + 6 + eps);
+        translate([0, -6, 0]) rotate([-90, 0, 0]) cylinder(d = lens_barrel_d + 1, h = lens_front + 6 + eps);
+        translate([0, cap_front - lens_cap_l - 1.5, 0]) rotate([-90, 0, 0]) cylinder(d = lens_cap_d + 1, h = lens_cap_l + 1.5 + eps); // FIX A1: cap turns freely to focus
         hull() {                                          // opening that clears the field of view
-            slab(lens_front, max(req_w(0), lens_cap_d + 1), max(req_h(0), lens_cap_d + 1));
+            slab(lens_front, max(req_w(0), lens_barrel_d + 1), max(req_h(0), lens_barrel_d + 1));
             slab(boss_len + 1, req_w(boss_len + 1 - lens_front), req_h(boss_len + 1 - lens_front));
         }
         for (x = [-1, 1], z = [-1, 1])

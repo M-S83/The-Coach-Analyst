@@ -2,7 +2,7 @@
 
 OpenSCAD model of concept B: two rounded pods, one per camera, joined by a bridge whose top is a rain channel. The warm pod (−X) holds the ROCK 5B+ and camera 1. The cool pod (+X) holds the Cygnett bank and camera 2.
 
-All sizes live in `bino.scad`. Every other file includes it and draws one printable part, already turned to its print orientation.
+This is **rev A**: the geometry of the printed prototype, with two small fixes (marked `FIX A1` in `bino.scad`) for the Commonlands CIL358 5.8mm lenses. All sizes live in `bino.scad`. Every other file includes it and draws one printable part, already turned to its print orientation.
 
 | File | Part | Print |
 |---|---|---|
@@ -22,7 +22,7 @@ Export with `openscad -o base.stl base.scad`, and the same for each part. When y
 No separate visor. The hoods are the visors.
 
 - **Rain from above:** the body sits 4° tail-down, so rain on the pods runs backwards and never over the front. Rain that lands on a hood runs forward along its top. The top extends 8mm further forward than the bottom, so it drips clear of the opening. A small groove under the top lip stops drips creeping back inside onto the glass.
-- **Field of view:** each hood flares to stay just outside the lens's view, with 1.5mm margin. It's set for the Commonlands CIL358 5.8mm lens, about 57° × 32° on the IMX415. A round hood that size would cut off the corners of the image.
+- **Field of view:** the hoods were sized for a 50° × 29° view. The CIL358 sees about 57° × 32° on the IMX415, but on the printed 6mm standoffs its front sits 7mm ahead of the nose plate, 5mm further forward than planned, so the hoods still clear its view. This was checked against the lens's corner rays from its entrance pupil, for sensor heights from 0.8 to 1.8mm. Don't add spacers under the camera boards: moving the lens back would bring the hood edges into the picture.
 - **Bench testing:** take the hoods off when using the stock 2.95mm lens. Its 75° view is wider than the hood.
 
 ## Bought parts
@@ -49,7 +49,7 @@ These values in `bino.scad` are placeholders:
 - **Heatsink:** height with the fan fitted (`heatsink_h`)
 - **Bank:** size, plus where its button and USB-C port sit (`bank_w`, `bank_l`, `bank_h`, `bank_button_y`, `bank_port_y`)
 - **Camera board:** size, hole spacing and lens holder footprint (`cam_board`, `cam_holes`, `cam_holder_w`)
-- **Camera board:** how far the sensor surface sits above the board's front face (`sensor_h`, set to 1.3mm). The lens is set from the Commonlands drawing for the CIL358-F1.9-M12A650: 29.7mm from image plane to front, Ø17mm front cap, M12x0.5 thread. The camera board sits on standoffs sized so the lens front lands 2mm ahead of the nose plate face (`lens_front`).
+- **Camera board:** how far the sensor surface sits above the board's front face (`sensor_h`, set to 1.3mm). The lens is set from the Commonlands drawing for the CIL358-F1.9-M12A650: 29.7mm from image plane to front, Ø17mm front cap, M12x0.5 thread.
 - **Ribbons:** camera 2's ribbon crosses to the board through the tunnel under the channel. It needs about 15cm.
 
 ## Fit at the placeholder sizes
@@ -59,4 +59,9 @@ These values in `bino.scad` are placeholders:
 - **Cradle:** walls 4.6mm thick at the pocket floor.
 - **Battery:** sits 4mm above the lid split, with about 30mm free above it.
 - **Size:** 228 × 136 × 77.5mm including the bubble-level seat. The hoods reach about 36mm ahead of the nose plates.
-- **Camera boards:** on 11mm standoffs behind the pads, which puts the CIL358's front 2mm ahead of the nose plate.
+- **Camera boards:** on the printed 6mm standoffs, which puts the CIL358's front 7mm ahead of the nose plate.
+
+## Prototype notes (rev A, printed)
+
+- **Lens hole:** the printed nose plates have a 15mm bore just behind where the lens's 17mm cap sits, with only a few tenths of a millimetre to spare. Before assembly, screw a lens into each camera and try it in its nose plate. If the cap binds or won't turn freely for focusing, open the front of the hole to 18mm with a step drill or round file. `FIX A1` in the model makes this an 18mm pocket for any reprint.
+- **Bubble-level seat:** on the printed lid it reaches 5mm into the inside of the warm pod. Nothing touches it, so leave it. `FIX A1` moves it outside for any reprint.
